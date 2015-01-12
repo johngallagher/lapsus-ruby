@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<class name='JGXPCInterface'>
+<method class_method='true' selector='interface'>
+<retval declared_type='NSXPCInterface*' type='@'/>
+</method>
+</class>
+<class name='NSObject'>
+<method selector='testMessage'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+</class>
+<informal_protocol name='MyProtocol'>
+<method selector='testMessage' type='@8@0:4' type64='@16@0:8'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+</informal_protocol>
+</signatures>

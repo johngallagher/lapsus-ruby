@@ -1,4 +1,4 @@
-describe "Application 'lapsus'" do
+describe "Application 'lapsus_helper_app'" do
   before do
     @app = NSApplication.sharedApplication
   end
