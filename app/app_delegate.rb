@@ -1,3 +1,19 @@
+class ActiveDocumentGrabber
+  def initialize(bundle_identifier)
+    source = %Q[
+      tell application "System Events"
+        value of attribute "AXDocument" of (front window of the (first process whose bundle identifier is "#{bundle_identifier}"))
+      end tell
+    ]
+    @script = NSAppleScript.alloc.initWithSource(source)
+    @script.compileAndReturnError(nil)
+  end
+
+  def grab
+    @script.executeAndReturnError(nil)
+  end
+end
+
 class Entry < CDQManagedObject
   
 end
