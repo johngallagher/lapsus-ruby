@@ -1,4 +1,4 @@
-describe "Application 'lapsus_menu_bar'" do
+describe "Application 'lapsus_menu_bar'", :cocoa do
   before do
     @app = NSApplication.sharedApplication
   end
