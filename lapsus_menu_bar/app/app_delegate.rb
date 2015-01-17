@@ -49,5 +49,6 @@ class AppDelegate
 
   def createEntry
     Entry.create(startedAt: Time.now - 100, finishedAt: Time.now, scheme: 'file', host: 'localhost', path: '/Users/John/Lapsus/main.rb')
+    cdq.save
   end
 end
