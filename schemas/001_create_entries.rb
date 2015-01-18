@@ -11,6 +11,7 @@ schema "001" do
     datetime   :startedAt
     datetime   :finishedAt
 
+    string     :url
     string     :scheme
     string     :host
     string     :path

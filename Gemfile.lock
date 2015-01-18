@@ -4,6 +4,9 @@ GEM
     activesupport (3.2.21)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
+    bubble-wrap (1.7.1)
+      bubble-wrap-http (= 1.7.1)
+    bubble-wrap-http (1.7.1)
     builder (3.2.2)
     cdq (0.1.11)
       motion-yaml
@@ -35,6 +38,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bubble-wrap (~> 1.7.1)
   cdq
   rake
   rspec

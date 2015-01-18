@@ -10,6 +10,7 @@
   <entity name="Entry" syncable="YES" representedClassName="Entry">
     <attribute optional="YES" syncable="YES" attributeType="Date" name="startedAt"/>
     <attribute optional="YES" syncable="YES" attributeType="Date" name="finishedAt"/>
+    <attribute optional="YES" syncable="YES" attributeType="String" name="url"/>
     <attribute optional="YES" syncable="YES" attributeType="String" name="scheme"/>
     <attribute optional="YES" syncable="YES" attributeType="String" name="host"/>
     <attribute optional="YES" syncable="YES" attributeType="String" name="path"/>
