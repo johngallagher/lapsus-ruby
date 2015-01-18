@@ -31,7 +31,7 @@ class DocumentGrabber
           end tell
         end tell
       ]
-    }.fetch(bundleIdentifier, defaultSourceFromBundleIdentifier(bundleIdentifier))
+    }.fetch(bundleIdentifier) { defaultSourceFromBundleIdentifier(bundleIdentifier) }
   end
 
   def self.defaultSourceFromBundleIdentifier(bundleIdentifier)
