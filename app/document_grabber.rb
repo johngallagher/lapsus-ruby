@@ -11,13 +11,19 @@ class DocumentGrabber
   end
 
   def activeDocument
-    Document.new(url: NSURL.URLWithString(grabActiveDocumentUrl), bundleIdentifier: @bundleIdentifier)
+    Document.new(url: NSURL.URLWithString(grabActiveDocumentUrl), 
+                 bundleIdentifier: @bundleIdentifier)
   end
 
   private
   def grabActiveDocumentUrl
+    return 'missingfile://' if @bundleIdentifier == NSRunningApplication.currentApplication.bundleIdentifier
+
     activeUrl = @script.executeAndReturnError(nil)
     (activeUrl && activeUrl.stringValue) ? activeUrl.stringValue : 'missingfile://'
+  rescue => error
+    puts "Error: #{error}"
+    'missingfile://'
   end
 end
 
