@@ -1,8 +1,6 @@
 class Entry < CDQManagedObject; end
 class MainWindowController < NSWindowController; end
-class Application
-  attr_accessor :bundleIdentifier
-
+class DocumentGrabber
   def initialize(bundleIdentifier)
     @bundleIdentifier = bundleIdentifier
     source = %Q[
@@ -15,68 +13,75 @@ class Application
   end
 
   def activeDocument
+    Document.new(url: NSURL.URLWithString(grabActiveDocumentUrl), bundleIdentifier: @bundleIdentifier)
+  end
+
+  private
+  def grabActiveDocumentUrl
     activeUrl = @script.executeAndReturnError(nil)
-    if activeUrl && activeUrl.stringValue
-      Document.new(NSURL.URLWithString(activeUrl.stringValue)) 
-    else
-      MissingDocument.new
-    end
+    (activeUrl && activeUrl.stringValue) ? activeUrl.stringValue : 'missingfile://'
   end
 end
 
 class Document
-  attr_accessor :url
+  attr_accessor :url, :bundleIdentifier
 
-  def initialize(url)
-    @url = url
-  end
-
-end
-
-
-class MissingDocument
-  def url
-    NSURL.URLWithString('')
+  def initialize(attrs)
+    @bundleIdentifier = attrs.fetch(:bundleIdentifier)
+    @url = attrs.fetch(:url)
   end
 end
 
 class ActiveDocumentTracker
-  def activeBundleIdentifier
-    NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
+  attr_accessor :activeDocument
+  include BW::KVO
+
+  def initialize
+    @center = NSWorkspace.sharedWorkspace.notificationCenter
+    @center.addObserver(self, 
+                        selector: 'applicationDidChangeFromNotification:', 
+                        name: NSWorkspaceDidActivateApplicationNotification, 
+                        object: nil)
   end
 
-  def updateApplication
-    @activeApplication = Application.new(activeBundleIdentifier)
-    puts "Active Application did change to #{@activeApplication.bundleIdentifier}"
+  def dealloc
+    EM.cancel_timer(@timer)
+    @center.removeObserver(self,
+                           name: NSWorkspaceDidActivateApplicationNotification,
+                           object: nil)
   end
 
-  def updateDocument
-    @activeDocument = @activeApplication.activeDocument
-    puts "Active doc is #{@activeDocument.className}"
-    puts "Active Document did change to #{@activeDocument.url.absoluteString}"
-  end
-
-  def poll
-    applicationHasChanged = @activeApplication.bundleIdentifier != activeBundleIdentifier
-    if applicationHasChanged
-      updateApplication
-      updateDocument
-      return
-    end
-
-    activeDocument = @activeApplication.activeDocument
-    documentHasChanged = @activeDocument.url != activeDocument.url
-    if documentHasChanged
-      updateDocument 
-    end
+  def applicationDidChangeFromNotification(notification)
+    application = notification.userInfo.valueForKey NSWorkspaceApplicationKey
+    applicationDidChange(application)
   end
 
   def watch
-    updateApplication
-    updateDocument
-    EM.add_periodic_timer 1.0 do
-      poll
+    observeActiveDocument
+    applicationDidChange(NSWorkspace.sharedWorkspace.frontmostApplication)
+    @timer = EM.add_periodic_timer 1.0 do
+      document = @grabber.activeDocument
+      documentHasChanged = self.activeDocument.url != document.url
+      documentDidChange(document) if documentHasChanged
     end
+  end
+
+  private
+  def observeActiveDocument
+    observe(self, :activeDocument) do |oldActiveDocument, newActiveDocument|
+      @center.postNotificationName('com.synapticmishap.documentDidChange',
+                                   object: nil,
+                                   userInfo: { 'JGActiveDocument' => newActiveDocument })
+    end
+  end
+
+  def applicationDidChange(application)
+    @grabber = DocumentGrabber.new(application.bundleIdentifier)
+    documentDidChange(@grabber.activeDocument)
+  end
+
+  def documentDidChange(document)
+    self.activeDocument = document
   end
 end
 
@@ -88,9 +93,29 @@ class AppDelegate
     cdq.setup
     setupMenuBar
     setupMainWindow
+    observeActiveDocumentChanges
+    startTrackingDocuments
+    true
+  end
+
+  def observeActiveDocumentChanges
+    @center = NSWorkspace.sharedWorkspace.notificationCenter
+    @center.addObserver(self, 
+                        selector: 'activeDocumentDidChange:', 
+                        name: 'com.synapticmishap.documentDidChange', 
+                        object: nil)
+  end
+
+  def activeDocumentDidChange(notification)
+    newActiveDocument = notification.userInfo['JGActiveDocument']
+    puts "Changed active application to #{newActiveDocument.bundleIdentifier}"
+    puts "Changed active document to #{newActiveDocument.url.absoluteString}"
+  end
+
+
+  def startTrackingDocuments
     @activeDocumentTracker = ActiveDocumentTracker.new
     @activeDocumentTracker.watch
-    true
   end
 
   def setupMenuBar
