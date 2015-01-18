@@ -1,5 +1,85 @@
 class Entry < CDQManagedObject; end
 class MainWindowController < NSWindowController; end
+class Application
+  attr_accessor :bundleIdentifier
+
+  def initialize(bundleIdentifier)
+    @bundleIdentifier = bundleIdentifier
+    source = %Q[
+      tell application "System Events"
+        value of attribute "AXDocument" of (front window of the (first process whose bundle identifier is "#{bundleIdentifier}"))
+      end tell
+    ]
+    @script = NSAppleScript.alloc.initWithSource(source)
+    @script.compileAndReturnError(nil)
+  end
+
+  def activeDocument
+    activeUrl = @script.executeAndReturnError(nil)
+    if activeUrl && activeUrl.stringValue
+      Document.new(NSURL.URLWithString(activeUrl.stringValue)) 
+    else
+      MissingDocument.new
+    end
+  end
+end
+
+class Document
+  attr_accessor :url
+
+  def initialize(url)
+    @url = url
+  end
+
+end
+
+
+class MissingDocument
+  def url
+    NSURL.URLWithString('')
+  end
+end
+
+class ActiveDocumentTracker
+  def activeBundleIdentifier
+    NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
+  end
+
+  def updateApplication
+    @activeApplication = Application.new(activeBundleIdentifier)
+    puts "Active Application did change to #{@activeApplication.bundleIdentifier}"
+  end
+
+  def updateDocument
+    @activeDocument = @activeApplication.activeDocument
+    puts "Active doc is #{@activeDocument.className}"
+    puts "Active Document did change to #{@activeDocument.url.absoluteString}"
+  end
+
+  def poll
+    applicationHasChanged = @activeApplication.bundleIdentifier != activeBundleIdentifier
+    if applicationHasChanged
+      updateApplication
+      updateDocument
+      return
+    end
+
+    activeDocument = @activeApplication.activeDocument
+    documentHasChanged = @activeDocument.url != activeDocument.url
+    if documentHasChanged
+      updateDocument 
+    end
+  end
+
+  def watch
+    updateApplication
+    updateDocument
+    EM.add_periodic_timer 1.0 do
+      poll
+    end
+  end
+end
+
 class AppDelegate
   include CDQ
   attr_accessor :status_menu, :status_item, :tracker, :timer
@@ -8,6 +88,8 @@ class AppDelegate
     cdq.setup
     setupMenuBar
     setupMainWindow
+    @activeDocumentTracker = ActiveDocumentTracker.new
+    @activeDocumentTracker.watch
     true
   end
 
