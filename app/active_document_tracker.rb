@@ -3,51 +3,39 @@ class ActiveDocumentTracker
   include BW::KVO
 
   def initialize
+    @grabber = DocumentGrabber.new
     @center = NSWorkspace.sharedWorkspace.notificationCenter
-    @center.addObserver(self, 
-                        selector: 'applicationDidChangeFromNotification:', 
-                        name: NSWorkspaceDidActivateApplicationNotification, 
-                        object: nil)
   end
 
   def dealloc
     EM.cancel_timer(@timer)
-    @center.removeObserver(self,
-                           name: NSWorkspaceDidActivateApplicationNotification,
-                           object: nil)
-  end
-
-  def applicationDidChangeFromNotification(notification)
-    application = notification.userInfo.valueForKey NSWorkspaceApplicationKey
-    applicationDidChange(application)
+    super
   end
 
   def watch
     observeActiveDocument
-    applicationDidChange(NSWorkspace.sharedWorkspace.frontmostApplication)
+    updateActiveDocument
+
     @timer = EM.add_periodic_timer 1.0 do
-      document = @grabber.activeDocument
-      documentHasChanged = self.activeDocument.url != document.url
-      documentDidChange(document) if documentHasChanged
+      updateActiveDocument
     end
   end
 
   private
+  def updateActiveDocument
+    bundleIdentifier = NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
+    document = @grabber.activeDocument(bundleIdentifier)
+
+    documentHasChanged = self.activeDocument.nil? || self.activeDocument.url != document.url || self.activeDocument.bundleIdentifier != bundleIdentifier
+    self.activeDocument = document if documentHasChanged
+  end
+
   def observeActiveDocument
     observe(self, :activeDocument) do |oldActiveDocument, newActiveDocument|
       @center.postNotificationName('com.synapticmishap.documentDidChange',
                                    object: nil,
                                    userInfo: { 'JGActiveDocument' => newActiveDocument })
     end
-  end
-
-  def applicationDidChange(application)
-    @grabber = DocumentGrabber.new(application.bundleIdentifier)
-    documentDidChange(@grabber.activeDocument)
-  end
-
-  def documentDidChange(document)
-    self.activeDocument = document
   end
 end
 
