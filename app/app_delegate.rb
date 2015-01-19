@@ -1,16 +1,30 @@
-class Entry < CDQManagedObject; end
+class Entry < CDQManagedObject
+  def duration
+    if finishedAt && startedAt
+      finishedAt - startedAt 
+    else
+      0
+    end
+  end
+end
 class MainWindowController < NSWindowController; end
 class AppDelegate
   include CDQ
-  attr_accessor :status_menu, :status_item, :tracker, :timer
+  attr_accessor :status_menu, :status_item, :tracker, :timer, :moc
 
   def applicationDidFinishLaunching(notification)
     cdq.setup
+    self.moc = cdq.contexts.current
     setupMenuBar
     setupMainWindow
     observeActiveDocumentChanges
     startTrackingDocuments
     true
+  end
+
+  def applicationWillTerminate(notification)
+    @activeEntry.finishedAt = Time.now
+    cdq.save
   end
 
   def observeActiveDocumentChanges
@@ -22,11 +36,21 @@ class AppDelegate
   end
 
   def activeDocumentDidChange(notification)
-    newActiveDocument = notification.userInfo['JGActiveDocument']
-    puts "Changed active application to #{newActiveDocument.bundleIdentifier}"
-    puts "Changed active document to #{newActiveDocument.url.absoluteString}"
+    document = notification.userInfo['JGActiveDocument']
+    if !@activeEntry
+      @activeEntry = createEntryWithDocument(document)
+    elsif @activeEntry.url != document.url || @activeEntry.application_bundle_id != document.bundleIdentifier
+      @activeEntry.finishedAt = Time.now
+      @activeEntry = createEntryWithDocument(document)
+    end
+    cdq.save
+    puts "Changed active application to #{document.bundleIdentifier}"
+    puts "Changed active document to #{document.url.absoluteString}"
   end
 
+  def createEntryWithDocument(document)
+    Entry.create(startedAt: Time.now, url: document.url.absoluteString, path: document.url.path, application_bundle_id: document.bundleIdentifier)
+  end
 
   def startTrackingDocuments
     @activeDocumentTracker = ActiveDocumentTracker.new

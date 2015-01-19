@@ -1,4 +1,6 @@
 class DocumentGrabber
+  attr_accessor :bundleIdentifier
+
   def initialize(bundleIdentifier)
     @bundleIdentifier = bundleIdentifier
     @script = NSAppleScript.alloc.initWithSource(DocumentGrabber.sourceFromBundleIdentifier(bundleIdentifier))
@@ -6,7 +8,8 @@ class DocumentGrabber
   end
 
   def activeDocument
-    Document.new(url: NSURL.URLWithString(grabActiveDocumentUrl), bundleIdentifier: @bundleIdentifier)
+    Document.new(url: NSURL.URLWithString(grabActiveDocumentUrl), 
+                 bundleIdentifier: self.bundleIdentifier)
   end
 
   private
