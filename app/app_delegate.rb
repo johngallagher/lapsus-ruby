@@ -37,15 +37,26 @@ class AppDelegate
 
   def activeDocumentDidChange(notification)
     document = notification.userInfo['JGActiveDocument']
-    if !@activeEntry
+    if document.nil?
+      @activeEntry.finishedAt = Time.now
+      puts "#{Time.now} - Stopped last recording on sleep. #{@activeEntry.attributes}"
+      @activeEntry = nil
+    elsif !@activeEntry
       @activeEntry = createEntryWithDocument(document)
+      puts "#{Time.now} - Started fresh recording on wake. #{@activeEntry.attributes}"
     elsif @activeEntry.url != document.url || @activeEntry.application_bundle_id != document.bundleIdentifier
       @activeEntry.finishedAt = Time.now
+      puts "Stopped old recording entry #{@activeEntry.attributes}"
       @activeEntry = createEntryWithDocument(document)
+      puts "Started new recording entry #{@activeEntry.attributes}"
     end
     cdq.save
-    puts "Changed active application to #{document.bundleIdentifier}"
-    puts "Changed active document to #{document.url.absoluteString}"
+    if document
+      puts "Changed active application to #{document.bundleIdentifier}"
+      puts "Changed active document to #{document.url.absoluteString}"
+    else
+      puts "Blank document"
+    end
   end
 
   def createEntryWithDocument(document)
