@@ -36,7 +36,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="B9q-Zk-CXI" id="8rQ-ML-noH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="191" height="357"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="188" height="357"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -64,7 +64,7 @@
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="HEADER CELL" id="A5a-VL-CkW">
                                                                                 <font key="font" metaFont="smallSystemBold"/>
-                                                                                <color key="textColor" red="0.43921568630000002" green="0.4941176471" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
@@ -80,7 +80,7 @@
                                                                         <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLp-AG-7jV">
                                                                             <rect key="frame" x="3" y="0.0" width="17" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="VVa-nb-kaA"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSFolder" id="VVa-nb-kaA"/>
                                                                         </imageView>
                                                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zl3-nH-4b5">
                                                                             <rect key="frame" x="25" y="0.0" width="160" height="17"/>
@@ -100,6 +100,10 @@
                                                             </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="-2" id="f49-GM-Zf5"/>
+                                                        <outlet property="delegate" destination="-2" id="SDp-l5-3sD"/>
+                                                    </connections>
                                                 </outlineView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -303,6 +307,6 @@
         </menu>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSFolder" width="32" height="32"/>
     </resources>
 </document>

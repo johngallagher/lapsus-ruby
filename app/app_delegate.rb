@@ -14,7 +14,7 @@ class Entry < CDQManagedObject
 end
 class RootNode
   def name
-    'All Projects'
+    'PROJECTS'
   end
 
   def root
@@ -32,7 +32,7 @@ class Node
 end
 class MainWindowController < NSWindowController
   def outlineView(outlineView, child: child, ofItem: item)
-    if item.nil?
+    if child == 0
       RootNode.new
     else
       Node.new
@@ -40,19 +40,21 @@ class MainWindowController < NSWindowController
   end
 
   def outlineView(outlineView, isItemExpandable: item)
-    item && item.root
+    false
   end
 
   def outlineView(outlineView, numberOfChildrenOfItem: item)
-    if item.nil?
-      1
-    else
-      5
-    end
+    5
   end
 
   def outlineView(outlineView, viewForTableColumn: tableColumn, item: item)
-    tableCellView = outlineView.makeViewWithIdentifier('DataCell', owner: self)
+    if item.root
+      tableCellView = outlineView.makeViewWithIdentifier('HeaderCell', owner: self)
+      tableCellView.textField.textColor = NSColor.headerColor
+      tableCellView.textField.font = NSFont.boldSystemFontOfSize(NSFont.smallSystemFontSize)
+    else
+      tableCellView = outlineView.makeViewWithIdentifier('DataCell', owner: self)
+    end
     tableCellView.textField.stringValue = item.name
     tableCellView
   end
