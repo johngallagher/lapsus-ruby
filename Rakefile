@@ -12,5 +12,5 @@ end
 
 Motion::Project::App.setup do |app|
   app.name = 'lapsus_menu_bar'
-  #app.info_plist['LSUIElement'] = true
+  app.frameworks += %W[ ApplicationServices ]
 end
