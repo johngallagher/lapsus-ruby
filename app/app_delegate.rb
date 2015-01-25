@@ -37,11 +37,11 @@ class AppDelegate
 
   def activeDocumentDidChange(notification)
     document = notification.userInfo['JGActiveDocument']
-    if document.nil?
-      @activeEntry.finishedAt = Time.now
-      puts "#{Time.now} - Stopped last recording on sleep. #{@activeEntry.attributes}"
+    if document.nil? 
+      @activeEntry.finishedAt = Time.now if @activeEntry
+      puts "#{Time.now} - Stopped last recording on sleep or inactivity."
       @activeEntry = nil
-    elsif !@activeEntry
+    elsif !@activeEntry && document
       @activeEntry = createEntryWithDocument(document)
       puts "#{Time.now} - Started fresh recording on wake. #{@activeEntry.attributes}"
     elsif @activeEntry.url != document.url || @activeEntry.application_bundle_id != document.bundleIdentifier

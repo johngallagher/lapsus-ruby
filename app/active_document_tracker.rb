@@ -29,8 +29,18 @@ class ActiveDocumentTracker
 
   def addTimer
     @timer = EM.add_periodic_timer 1.0 do
-      updateActiveDocument
+      if userIdle?
+        puts "user is idle"
+        self.activeDocument = nil if self.activeDocument
+      else
+        updateActiveDocument
+      end
     end
+  end
+
+  def userIdle?
+    timeSinceLastEvent = CGEventSourceSecondsSinceLastEventType(KCGEventSourceStateHIDSystemState, KCGAnyInputEventType)
+    timeSinceLastEvent > 5
   end
 
   def cancelTimer
