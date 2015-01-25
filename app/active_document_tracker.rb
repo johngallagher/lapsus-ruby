@@ -1,5 +1,5 @@
 class ActiveDocumentTracker
-  attr_accessor :activeDocument
+  attr_accessor :activeDocument, :idleTime
   include BW::KVO
 
   def initialize
@@ -13,11 +13,27 @@ class ActiveDocumentTracker
                         selector: 'machineDidWake:', 
                         name: NSWorkspaceDidWakeNotification,
                         object: nil)
+    self.idleTime = NSUserDefaults.standardUserDefaults['idleTime']
+    @notificationCenter = NSNotificationCenter.defaultCenter
+    @notificationCenter.addObserver(self,
+                                    selector: 'defaultsChanged:',
+                                    name: NSUserDefaultsDidChangeNotification,
+                                    object: nil)
   end
 
   def dealloc
     cancelTimer
     super
+  end
+
+  def defaultsChanged(notification)
+    self.idleTime = notification.object['idleTime']
+    if userIdle?
+      puts "user is idle"
+      self.activeDocument = nil if self.activeDocument
+    else
+      updateActiveDocument
+    end
   end
 
   def watch
@@ -40,7 +56,7 @@ class ActiveDocumentTracker
 
   def userIdle?
     timeSinceLastEvent = CGEventSourceSecondsSinceLastEventType(KCGEventSourceStateHIDSystemState, KCGAnyInputEventType)
-    timeSinceLastEvent > 5
+    timeSinceLastEvent > self.idleTime.to_f * 60
   end
 
   def cancelTimer
