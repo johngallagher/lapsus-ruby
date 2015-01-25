@@ -1,3 +1,8 @@
+class Project < CDQManagedObject
+  def root
+    false
+  end
+end
 class Entry < CDQManagedObject
   def duration
     if finishedAt && startedAt
@@ -7,7 +12,51 @@ class Entry < CDQManagedObject
     end
   end
 end
-class MainWindowController < NSWindowController; end
+class RootNode
+  def name
+    'All Projects'
+  end
+
+  def root
+    true
+  end
+end
+
+class Node
+  def name
+    'hello'
+  end
+  def root
+    false
+  end
+end
+class MainWindowController < NSWindowController
+  def outlineView(outlineView, child: child, ofItem: item)
+    if item.nil?
+      RootNode.new
+    else
+      Node.new
+    end
+  end
+
+  def outlineView(outlineView, isItemExpandable: item)
+    item && item.root
+  end
+
+  def outlineView(outlineView, numberOfChildrenOfItem: item)
+    if item.nil?
+      1
+    else
+      5
+    end
+  end
+
+  def outlineView(outlineView, viewForTableColumn: tableColumn, item: item)
+    tableCellView = outlineView.makeViewWithIdentifier('DataCell', owner: self)
+    tableCellView.textField.stringValue = item.name
+    tableCellView
+  end
+end
 class PreferencesController < NSWindowController; end
 class AppDelegate
   include CDQ
@@ -21,6 +70,7 @@ class AppDelegate
     setupPreferencesWindow
     observeActiveDocumentChanges
     startTrackingDocuments
+    showLapsusWindow
     true
   end
 
