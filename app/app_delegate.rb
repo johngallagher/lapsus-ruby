@@ -13,6 +13,7 @@ class AppDelegate
   attr_accessor :status_menu, :status_item, :tracker, :timer, :moc
 
   def applicationDidFinishLaunching(notification)
+    
     cdq.setup
     self.moc = cdq.contexts.current
     setupMenuBar
@@ -51,12 +52,6 @@ class AppDelegate
       puts "Started new recording entry #{@activeEntry.attributes}"
     end
     cdq.save
-    if document
-      puts "Changed active application to #{document.bundleIdentifier}"
-      puts "Changed active document to #{document.url.absoluteString}"
-    else
-      puts "Blank document"
-    end
   end
 
   def createEntryWithDocument(document)
