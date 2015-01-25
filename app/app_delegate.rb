@@ -110,7 +110,9 @@ class AppDelegate
   end
 
   def createEntryWithDocument(document)
-    Entry.create(startedAt: Time.now, url: document.url.absoluteString, path: document.url.path, application_bundle_id: document.bundleIdentifier)
+    url = (document.url ? document.url.absoluteString : '')
+    path = (document.url ? document.url.path : '')
+    Entry.create(startedAt: Time.now, url: url, path: path, application_bundle_id: document.bundleIdentifier)
   end
 
   def startTrackingDocuments
