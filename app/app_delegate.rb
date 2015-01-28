@@ -63,6 +63,8 @@ class MainWindowController < NSWindowController
       openDlg.URLs.each do |filename|
         manager = NSFileManager.defaultManager
         selectedFolderURL = openDlg.URLs.first
+        container = Container.create(name: selectedFolderURL.lastPathComponent,
+                                     path: selectedFolderURL.absoluteString)
         urls = manager.contentsOfDirectoryAtURL(selectedFolderURL,
                                                 includingPropertiesForKeys: [NSURLPathKey, NSURLIsDirectoryKey],
                                                 options: 0,
@@ -77,7 +79,6 @@ class MainWindowController < NSWindowController
           Project.create(name: directory.lastPathComponent, path: directory.absoluteString)
         end
 
-        container = Container.create(name: selectedFolderURL.lastPathComponent, path: selectedFolderURL.absoluteString)
         projects.each do |project|
           container.projects << project
         end
@@ -102,9 +103,6 @@ class AppDelegate
     observeActiveDocumentChanges
     startTrackingDocuments
     showLapsusWindow
-    #c = Container.first
-    #c.projects << Project.first
-    #cdq.save
     true
   end
 
@@ -125,20 +123,28 @@ class AppDelegate
 
   def activeDocumentDidChange(notification)
     document = notification.userInfo['JGActiveDocument']
-    if document.nil? 
+    if inactive?(document)
       @activeEntry.finishedAt = Time.now if @activeEntry
-      puts "#{Time.now} - Stopped last recording on sleep or inactivity."
       @activeEntry = nil
-    elsif !@activeEntry && document
+    elsif recoveringFromSleep?(document)
       @activeEntry = createEntryWithDocument(document)
-      puts "#{Time.now} - Started fresh recording on wake. #{@activeEntry.attributes}"
-    elsif @activeEntry.url != document.url || @activeEntry.application_bundle_id != document.bundleIdentifier
+    elsif activeDocumentHasChanged?(document)
       @activeEntry.finishedAt = Time.now
-      puts "Stopped old recording entry #{@activeEntry.attributes}"
       @activeEntry = createEntryWithDocument(document)
-      puts "Started new recording entry #{@activeEntry.attributes}"
     end
     cdq.save
+  end
+
+  def activeDocumentHasChanged?(document)
+    @activeEntry.url != document.url || @activeEntry.application_bundle_id != document.bundleIdentifier
+  end
+
+  def inactive?(document)
+    document.nil? 
+  end
+
+  def recoveringFromSleep?(document)
+    !@activeEntry && document
   end
 
   def createEntryWithDocument(document)
