@@ -114,7 +114,7 @@
                                             </binding>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LKz-4W-d3P">
+                                    <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LKz-4W-d3P">
                                         <rect key="frame" x="26" y="0.0" width="28" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S7J-cT-jA5">
@@ -124,8 +124,12 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="LKz-4W-d3P" firstAttribute="top" secondItem="xZu-s7-37R" secondAttribute="bottom" id="39X-Ue-WLn"/>
+                                    <constraint firstItem="xZu-s7-37R" firstAttribute="leading" secondItem="Bk2-al-YBV" secondAttribute="leading" id="58O-yO-Ao7"/>
+                                    <constraint firstItem="xZu-s7-37R" firstAttribute="top" secondItem="Bk2-al-YBV" secondAttribute="top" id="9eq-Mq-C7P"/>
                                     <constraint firstItem="xZu-s7-37R" firstAttribute="centerY" secondItem="Bk2-al-YBV" secondAttribute="centerY" id="Cxc-Ad-obk"/>
                                     <constraint firstItem="xZu-s7-37R" firstAttribute="top" secondItem="Bk2-al-YBV" secondAttribute="top" id="Ept-IL-Oh4"/>
+                                    <constraint firstAttribute="trailing" secondItem="xZu-s7-37R" secondAttribute="trailing" id="OwW-qP-QaV"/>
                                     <constraint firstItem="xZu-s7-37R" firstAttribute="leading" secondItem="Bk2-al-YBV" secondAttribute="leading" id="PZS-H7-bz8"/>
                                     <constraint firstItem="xZu-s7-37R" firstAttribute="top" secondItem="Bk2-al-YBV" secondAttribute="top" id="ahY-tn-bjQ"/>
                                     <constraint firstItem="xZu-s7-37R" firstAttribute="top" secondItem="Bk2-al-YBV" secondAttribute="top" id="ecq-W6-3tY"/>
@@ -144,7 +148,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="sK7-fE-VEf" id="8AE-gv-0A6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="728" height="341"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="638" height="341"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -200,36 +204,20 @@
                                                                 <binding destination="FIa-Sh-NWw" name="value" keyPath="arrangedObjects.duration" id="2bo-Ls-PCu"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="116" minWidth="40" maxWidth="1000" id="YQV-zG-omF">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Path">
+                                                        <tableColumn width="79" minWidth="10" maxWidth="3.4028234663852886e+38" id="Sm3-UB-sYf">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Project Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="clH-C4-mbJ">
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="7t0-HN-nod">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="FIa-Sh-NWw" name="value" keyPath="arrangedObjects.path" id="LJg-A8-V0B"/>
-                                                            </connections>
-                                                        </tableColumn>
-                                                        <tableColumn width="229" minWidth="40" maxWidth="1000" id="FQE-C2-gcg">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Application Bundle ID">
-                                                                <font key="font" metaFont="smallSystem"/>
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="GYg-4k-hTL">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            <connections>
-                                                                <binding destination="FIa-Sh-NWw" name="value" keyPath="arrangedObjects.application_bundle_id" id="02X-U2-slz"/>
+                                                                <binding destination="FIa-Sh-NWw" name="value" keyPath="arrangedObjects.projectName" id="uah-Jy-PAW"/>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -240,7 +228,7 @@
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="7QP-bK-Rhr">
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="7QP-bK-Rhr">
                                             <rect key="frame" x="1" y="342" width="638" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -249,7 +237,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="sK7-fE-VEf">
-                                            <rect key="frame" x="0.0" y="0.0" width="728" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="638" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>

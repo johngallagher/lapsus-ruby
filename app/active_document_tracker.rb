@@ -1,6 +1,6 @@
 class ActiveDocumentTracker
-  attr_accessor :activeDocument, :idleTime
-  include BW::KVO
+  include CDQ
+  attr_accessor :activeDocument, :idleTime, :activeEntry
 
   def initialize
     @grabber = DocumentGrabber.new
@@ -32,13 +32,12 @@ class ActiveDocumentTracker
       puts "user is idle"
       self.activeDocument = nil if self.activeDocument
     else
-      updateActiveDocument
+      updateActiveEntry
     end
   end
 
   def watch
-    observeActiveDocument
-    updateActiveDocument
+    updateActiveEntry
 
     addTimer
   end
@@ -47,9 +46,9 @@ class ActiveDocumentTracker
     @timer = EM.add_periodic_timer 1.0 do
       if userIdle?
         puts "user is idle"
-        self.activeDocument = nil if self.activeDocument
+        self.activeEntry = nil
       else
-        updateActiveDocument
+        updateActiveEntry
       end
     end
   end
@@ -64,21 +63,55 @@ class ActiveDocumentTracker
   end
 
   private
-  def updateActiveDocument
+  def updateActiveEntry
     bundleIdentifier = NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
     document = @grabber.activeDocument(bundleIdentifier)
 
-    documentHasChanged = self.activeDocument.nil? || self.activeDocument.url != document.url || self.activeDocument.bundleIdentifier != bundleIdentifier
-    self.activeDocument = document if documentHasChanged
+    if inactive?(document)
+      puts "Inactive document."
+      self.activeEntry.finish
+      self.activeEntry = nil
+    elsif recoveringFromSleep?(document)
+      puts "Recovering from sleepy time."
+      self.activeEntry = Entry.create_and_start
+      self.activeEntry.project = projectFor(document)
+    elsif document.url.scheme == 'file' && self.activeEntry.project != projectFor(document)
+      puts "Document #{document} has changed"
+      self.activeEntry.finish
+      self.activeEntry = Entry.create_and_start
+      self.activeEntry.project = projectFor(document)
+    end
+
+    cdq.save
   end
 
-  def observeActiveDocument
-    observe(self, :activeDocument) do |oldActiveDocument, newActiveDocument|
-      puts "Did post notification #{newActiveDocument}"
-      @center.postNotificationName('com.synapticmishap.documentDidChange',
-                                   object: nil,
-                                   userInfo: { 'JGActiveDocument' => newActiveDocument })
+  def recoveringFromSleep?(document)
+    self.activeEntry.nil? && document
+  end
+
+  def inactive?(document)
+    document.nil? 
+  end
+
+  def projectFor(document)
+    return nil if document.nil?
+
+    projectForDocument = nil
+    Project.all.each do |project|
+      project_path_components = project.urlPathComponents
+      common_path_components = document.urlPathComponents[0..(project_path_components.length - 1)]
+      documentIsWithinProject = (common_path_components == project_path_components)
+      puts "Document is within project? #{documentIsWithinProject}"
+      puts "Document url common path components are #{common_path_components}"
+      puts "Project path components are #{project_path_components}"
+      puts "Document path components are #{document.url.pathComponents}"
+      if documentIsWithinProject
+        projectForDocument = project
+        break
+      end
     end
+
+    projectForDocument
   end
 
   def machineWillSleep(notification)
@@ -89,7 +122,7 @@ class ActiveDocumentTracker
 
   def machineDidWake(notification)
     puts "Machine did wake at #{Time.now}"
-    updateActiveDocument
+    updateActiveEntry
     addTimer
   end
 end
