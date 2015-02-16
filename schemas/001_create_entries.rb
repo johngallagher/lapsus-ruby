@@ -1,30 +1,16 @@
 schema "001" do
-  entity "Event" do
-    datetime  :happenedAt
-    string    :url
-    string    :application_bundle_id
-    string    :application_name
-    string    :type
-  end
-
   entity "Entry" do
     datetime   :startedAt
     datetime   :finishedAt
 
-    string     :url
-    string     :scheme
-    string     :host
-    string     :path
-
-    string     :application_bundle_id
-    string     :application_name
+    integer64    :duration
 
     belongs_to :project
   end
 
   entity "Project" do
     string     :name
-    string     :path
+    string     :urlString
 
     has_many   :entries
     belongs_to :container
@@ -37,3 +23,4 @@ schema "001" do
     has_many :projects
   end
 end
+

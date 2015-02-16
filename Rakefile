@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project/template/osx'
-require 'bubble-wrap'
 require 'bubble-wrap/reactor'
 
 begin
@@ -11,6 +10,6 @@ rescue LoadError
 end
 
 Motion::Project::App.setup do |app|
-  app.name = 'lapsus_menu_bar'
+  app.name = 'lapsus'
   app.frameworks += %W[ ApplicationServices ]
 end
