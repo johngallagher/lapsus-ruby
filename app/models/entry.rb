@@ -1,0 +1,3 @@
+class Entry < CDQManagedObject
+
+end

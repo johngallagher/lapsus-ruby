@@ -11,11 +11,19 @@ GEM
     cdq (0.1.11)
       motion-yaml
       ruby-xcdm (~> 0.0, >= 0.0.8)
+    coderay (1.1.0)
     diff-lcs (1.2.5)
     i18n (0.7.0)
+    method_source (0.8.2)
+    motion-bundler (0.2.1)
+      thor
     motion-yaml (1.4)
     multi_json (1.10.1)
     plist (3.1.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rake (10.4.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
@@ -33,6 +41,8 @@ GEM
       activesupport (~> 3.2)
       builder (~> 3.2)
       plist (~> 3.1)
+    slop (3.6.0)
+    thor (0.19.1)
 
 PLATFORMS
   ruby
@@ -40,6 +50,8 @@ PLATFORMS
 DEPENDENCIES
   bubble-wrap (~> 1.7.1)
   cdq
+  motion-bundler
+  pry
   rake
   rspec
   ruby-xcdm

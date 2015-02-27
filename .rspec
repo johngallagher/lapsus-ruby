@@ -1,1 +1,4 @@
+--tag ~ruby_motion 
+--tag ~feature 
 --tag ~cocoa
+--require spec_helper
