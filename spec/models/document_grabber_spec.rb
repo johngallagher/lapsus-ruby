@@ -3,7 +3,7 @@ class InMemoryRepo
     @entries = []
   end
 
-  def create(entry)
+  def create entry
     @entries << entry
   end
 
@@ -38,12 +38,7 @@ class Document
     @url = url
   end
 
-  def self.active(active_url_grabber=ActiveUrlGrabber.new)
-    url = active_url_grabber.grab
-    Document.new(url)
-  end
-
-  def ==(other)
+  def == other
     @url == other.url
   end
 end
@@ -51,37 +46,40 @@ end
 class FakeDocumentGrabber
   attr_accessor :active_document
 
-  def initialize(initial_document)
-    @active_document = initial_document
-  end
-
   def grab
     @active_document
   end
 end
 
 describe ActiveDocumentTracker do
-  it 'when the document changes it creates an entry' do
-    repo = InMemoryRepo.new
-    document_grabber = FakeDocumentGrabber.new(Document.new('/Users/jg/app.rb'))
-    tracker = ActiveDocumentTracker.new(repo, document_grabber)
-
-    document_grabber.active_document = Document.new('/Users/jg/different.rb')
-    tracker.update
-
-    repo.all.count.should == 1
-    repo.all.first.should == Document.new('/Users/jg/app.rb')
-  end
-end
-
-describe Document do
-  it 'has url' do
-    Document.new('missingfile://').url.should == 'missingfile://'
+  before do
+    @repo = InMemoryRepo.new
+    @document_grabber = FakeDocumentGrabber.new
+    @tracker = ActiveDocumentTracker.new(@repo, @document_grabber)
   end
 
-  it 'grabs the active document' do
-    fake_document_grabber = OpenStruct.new(grab: '/Users/jg/app.rb')
-    Document.active(fake_document_grabber).url.should ==  '/Users/jg/app.rb'
-    Document.active.url.should == 'missingurl://'
+  def active_document_path_is(path)
+    @document_grabber.active_document = Document.new(path)
+  end
+
+  it "when the document stays the same it doesn't create a new document" do
+    active_document_path_is("/document_1.rb")
+    @tracker.update
+
+    active_document_path_is("/document_1.rb")
+    @tracker.update
+
+    @repo.all.count.should == 0
+  end
+
+  it "when the document changes it creates an entry" do
+    active_document_path_is("/document_1.rb")
+    @tracker.update
+
+    active_document_path_is("/document_2.rb")
+    @tracker.update
+
+    @repo.all.count.should == 1
+    @repo.all.first.should == Document.new("/document_1.rb")
   end
 end

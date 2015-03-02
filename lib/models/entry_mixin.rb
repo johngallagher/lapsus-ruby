@@ -1,5 +1,5 @@
 module EntryMixin
   def greet
-    'nice'
+    "nice"
   end
 end
