@@ -1,5 +1,5 @@
-running_with_bacon = defined? Bacon
-if running_with_bacon
+running_in_plain_old_ruby = defined? Bacon
+if running_in_plain_old_ruby
   require "ostruct"
   require "pathname"
 end
