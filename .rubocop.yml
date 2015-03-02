@@ -1,0 +1,54 @@
+AllCops:
+  # Include gemspec and Rakefile
+  Include:
+    - 'app/**/*.rb'
+    - 'test/**/*.rb'
+  Exclude:
+    - 'mocks/**/*'
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'test/test_helper.rb'
+    - 'doc/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+  RunRailsCops: true
+
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - app/models/**/*.rb
+
+Rails/Delegate:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses
+
+Style/SpaceBeforeBlockBraces:
+  EnforcedStyle: no_space
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Metrics/LineLength:
+  Max: 140
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
+Metrics/MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 14
+
+Style/NonNilCheck:
+  IncludeSemanticChanges: true
+
+Lint/Void:
+  Enabled: false
