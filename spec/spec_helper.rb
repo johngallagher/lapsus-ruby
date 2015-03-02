@@ -1,13 +1,7 @@
-running_with_rspec = defined? RSpec
+running_with_rspec = defined? Bacon
 if running_with_rspec
-  Dir.glob(File.dirname(__FILE__) + '/../lib/**/*.rb').each { |f| require f }
+  require "ostruct"
+  require "pathname"
 
-  RSpec.configure do |config|
-    config.expect_with :rspec do |c|
-      c.syntax = :should
-    end
-    config.mock_with :rspec do |c|
-      c.syntax = :should
-    end
-  end
+  # Dir.glob('/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/lib/**/*.rb').each { |f| require f }
 end
