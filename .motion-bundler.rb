@@ -48,8 +48,11 @@ module MotionBundler
     "/Users/johngallagher/.gem/ruby/2.1.2/gems/cdq-0.1.11/motion/cdq/store.rb",
     "/Users/johngallagher/.gem/ruby/2.1.2/gems/cdq-0.1.11/motion/cdq/targeted_query.rb",
     "/Users/johngallagher/.gem/ruby/2.1.2/gems/motion-yaml-1.4/lib/project/yaml.rb",
+    "/Users/johngallagher/.gem/ruby/2.1.2/gems/motion-redgreen-1.0.0/lib/motion-redgreen/ansiterm.rb",
+    "/Users/johngallagher/.gem/ruby/2.1.2/gems/motion-redgreen-1.0.0/lib/motion-redgreen/string.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/ostruct.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/pathname.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/app_delegate.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/entry.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/lib/models/entry_dummy.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/lib/models/entry_mixin.rb"
