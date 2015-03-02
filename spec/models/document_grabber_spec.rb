@@ -3,7 +3,7 @@ class InMemoryRepo
     @entries = []
   end
 
-  def create entry
+  def create(entry)
     @entries << entry
   end
 
@@ -15,20 +15,16 @@ end
 class ActiveDocumentTracker
   def initialize(repo, grabber)
     @repo, @grabber = repo, grabber
-    @last_active_document = @grabber.grab
   end
 
   def update
     active_document = @grabber.grab
-    if active_document != @last_active_document
-      @repo.create(@last_active_document)
-    end
-  end
-end
 
-class ActiveUrlGrabber
-  def grab
-    'missingurl://'
+    if !@active_document
+      @active_document = active_document
+    elsif active_document != @active_document
+      @repo.create(@active_document)
+    end
   end
 end
 
@@ -38,7 +34,7 @@ class Document
     @url = url
   end
 
-  def == other
+  def ==(other)
     @url == other.url
   end
 end
