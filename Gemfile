@@ -7,6 +7,9 @@ gem 'ruby-xcdm'
 gem 'rspec'
 gem 'bubble-wrap', '~> 1.7.1'
 gem 'pry'
+gem 'bacon'
+gem 'motion-redgreen'
+gem 'nokogiri'
 
 group :motion do
 end
