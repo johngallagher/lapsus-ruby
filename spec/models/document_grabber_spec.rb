@@ -13,8 +13,8 @@ class InMemoryRepo
 end
 
 class ActiveDocumentTracker
-  def initialize(repo, grabber)
-    @repo, @grabber = repo, grabber
+  def initialize(repo, grabber, idle_detector)
+    @repo, @grabber, @idle_detector = repo, grabber, idle_detector
   end
 
   def update(date_time_class = Time)
@@ -61,11 +61,21 @@ end
 class FakeDate
   attr_accessor :now
 end
+
+class IdleDetector
+  attr_writer :user_is_idle
+
+  def user_is_idle?
+    @user_is_idle
+  end
+end
+
 describe ActiveDocumentTracker do
   before do
+    @idle_detector = IdleDetector.new
     @repo = InMemoryRepo.new
     @document_grabber = FakeDocumentGrabber.new
-    @tracker = ActiveDocumentTracker.new(@repo, @document_grabber)
+    @tracker = ActiveDocumentTracker.new(@repo, @document_grabber, @idle_detector)
     @fake_date = FakeDate.new
   end
 
