@@ -17,25 +17,36 @@ class ActiveDocumentTracker
     @repo, @grabber = repo, grabber
   end
 
-  def update
-    active_document = @grabber.grab
+  def update(date_time_class = Time)
+    active_document_uri = @grabber.grab.uri
 
     if !@active_document
-      @active_document = active_document
-    elsif active_document != @active_document
+      @active_document = Document.new(active_document_uri)
+      @active_document.start(date_time_class)
+    elsif active_document_uri != @active_document.uri
+      @active_document.finish(date_time_class)
       @repo.create(@active_document)
     end
   end
 end
 
 class Document
-  attr_reader :url
-  def initialize(url)
-    @url = url
+  attr_reader :uri, :started, :finished, :duration
+  def initialize(uri)
+    @uri = uri
+  end
+
+  def start(date_time_class = Time)
+    @started = date_time_class.now
+  end
+
+  def finish(date_time_class = Time)
+    @finished = date_time_class.now
+    @duration = @finished - @started
   end
 
   def ==(other)
-    @url == other.url
+    @uri == other.uri
   end
 end
 
@@ -47,15 +58,23 @@ class FakeDocumentGrabber
   end
 end
 
+class FakeDate
+  attr_accessor :now
+end
 describe ActiveDocumentTracker do
   before do
     @repo = InMemoryRepo.new
     @document_grabber = FakeDocumentGrabber.new
     @tracker = ActiveDocumentTracker.new(@repo, @document_grabber)
+    @fake_date = FakeDate.new
   end
 
   def active_document_path_is(path)
     @document_grabber.active_document = Document.new(path)
+  end
+
+  def time_is(time)
+    @fake_date.now = time
   end
 
   it "when the document stays the same it doesn't create a new document" do
@@ -69,13 +88,20 @@ describe ActiveDocumentTracker do
   end
 
   it "when the document changes it creates an entry" do
+    start_time = Time.parse('2014-01-01 11:00')
+    finish_time = Time.parse('2014-01-01 11:01')
+    time_is(start_time)
     active_document_path_is("/document_1.rb")
-    @tracker.update
+    @tracker.update(@fake_date)
 
+    time_is(finish_time)
     active_document_path_is("/document_2.rb")
-    @tracker.update
+    @tracker.update(@fake_date)
 
     @repo.all.count.should == 1
-    @repo.all.first.should == Document.new("/document_1.rb")
+    @repo.all.first.uri.should == "/document_1.rb"
+    @repo.all.first.started.should == start_time
+    @repo.all.first.finished.should == finish_time
+    @repo.all.first.duration.should == 60
   end
 end

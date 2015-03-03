@@ -19,4 +19,5 @@ end
 MotionBundler.setup do |app|
   app.require 'ostruct'
   app.require 'pathname'
+  app.require 'time'
 end

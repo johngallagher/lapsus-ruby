@@ -52,6 +52,8 @@ module MotionBundler
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-redgreen-1.0.0/lib/motion-redgreen/string.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/ostruct.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/pathname.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/time.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/date/format.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/app_delegate.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/entry.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/lib/models/entry_dummy.rb",
@@ -60,13 +62,18 @@ module MotionBundler
   FILES_DEPENDENCIES = {
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/boot.rb" => [
       "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/core_ext.rb"
+    ],
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/time.rb" => [
+      "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/date/format.rb"
     ]
   }
   REQUIRES = [
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/boot.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/.motion-bundler.rb",
     "core_ext",
+    "date/format",
     "ostruct",
-    "pathname"
+    "pathname",
+    "time"
   ]
 end
