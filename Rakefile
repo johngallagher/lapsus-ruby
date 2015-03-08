@@ -9,10 +9,12 @@ begin
 rescue LoadError
 end
 
+
 Motion::Project::App.setup do |app|
   app.name = 'lapsus'
   app.frameworks += %w(ApplicationServices)
-  app.files += Dir.glob(File.dirname(__FILE__) + '/lib/**/*.rb')
+  app.files += Dir.glob(File.join(app.project_dir, 'app/**/*.rb'))
+  app.files += Dir.glob(File.join(app.project_dir, 'lib/**/*.rb'))
   app.redgreen_style = :progress
 end
 
