@@ -1,17 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'motion-bundler'
 gem 'rake'
 gem 'cdq'
-gem 'ruby-xcdm'
 gem 'rspec'
-gem 'bubble-wrap', '~> 1.7.1'
-gem 'pry'
+gem 'bubble-wrap', require: %w[bubble-wrap/reactor]
 gem 'bacon'
-gem 'motion-redgreen'
-gem 'nokogiri'
-gem 'motion-stump'
 gem 'flog'
+gem 'rubocop'
+gem 'motion-bundler'
+gem 'motion-stump'
 
 group :motion do
 end

@@ -16,7 +16,6 @@ Motion::Project::App.setup do |app|
   app.frameworks += %w(ApplicationServices)
   app.files += Dir.glob(File.join(app.project_dir, 'app/**/*.rb'))
   app.files += Dir.glob(File.join(app.project_dir, 'lib/**/*.rb'))
-  app.redgreen_style = :progress
   app.specs_dir = ['spec_motion']
 end
 
