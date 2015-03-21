@@ -21,10 +21,7 @@ class ActiveDocumentTracker
 
   def find_current_project
     url = URIGrabber.grab
-    if url.start_with?(@active_projects.first.urlString)
-      @active_projects.first
-    else
-      @no_project
-    end
+    matching_project = @active_projects.find { |project| url.start_with?(project.urlString) }
+    matching_project || @no_project
   end
 end
