@@ -19,10 +19,6 @@ class FakeIdleDetector
   end
 end
 
-class FakeDate
-  attr_accessor :now
-end
-
 class AppDelegate
   include CDQ
   attr_reader :idle_detector, :uri_grabber, :time_class, :tracker
@@ -32,16 +28,14 @@ class AppDelegate
       cdq.stores.new(in_memory: true)
       @idle_detector = FakeIdleDetector.new
       @uri_grabber = FakeURIGrabber.new
-      @time_class = FakeDate.new
     else
       @idle_detector = IdleDetector.new
       @uri_grabber = URIGrabber.new
-      @time_class = Time
     end 
 
     cdq.setup
 
-    @tracker = ActiveDocumentTracker.new(cdq, @uri_grabber, @idle_detector, @time_class)
+    @tracker = ActiveDocumentTracker.new(cdq, @uri_grabber, @idle_detector)
 
     if RUBYMOTION_ENV == 'test'
       @timer = nil

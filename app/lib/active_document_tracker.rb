@@ -1,7 +1,6 @@
 class ActiveDocumentTracker
-  def initialize(cdq, grabber, idle_detector, time_class)
+  def initialize(cdq, grabber, idle_detector)
     @grabber, @idle_detector = grabber, idle_detector
-    @time_class = time_class
     @cdq = cdq
   end
 
@@ -11,10 +10,10 @@ class ActiveDocumentTracker
     active_url = @grabber.grab
     if active_url.start_with?(Project.first.urlString)
       @active_entry = Entry.create
-      @active_entry.start(@time_class)
+      @active_entry.start
       @active_entry.project = Project.first
     elsif @active_entry
-      @active_entry.finish(@time_class)
+      @active_entry.finish
       @cdq.save
     end
   end
