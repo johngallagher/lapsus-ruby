@@ -20,4 +20,9 @@ class AppDelegate
     end
     true
   end
+
+  def seed_db
+    Project.create_none
+    cdq.save
+  end
 end

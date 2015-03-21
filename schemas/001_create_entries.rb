@@ -11,6 +11,7 @@ schema "001" do
   entity "Project" do
     string :name
     string :urlString
+    boolean :none, default: false
 
     has_many :entries
     belongs_to :container
