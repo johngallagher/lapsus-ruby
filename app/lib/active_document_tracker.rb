@@ -2,7 +2,7 @@ class ActiveDocumentTracker
   def initialize(cdq)
     @cdq = cdq
     @no_project = Project.create_none
-    @active_projects = Project.active
+    @active_projects = Project.active.sort_by(:name)
   end
 
   def update
