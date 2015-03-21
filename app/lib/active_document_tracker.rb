@@ -1,13 +1,12 @@
 class ActiveDocumentTracker
-  def initialize(cdq, grabber, idle_detector)
-    @grabber, @idle_detector = grabber, idle_detector
+  def initialize(cdq)
     @cdq = cdq
   end
 
   def update
     return if Project.count == 0
 
-    active_url = @grabber.grab
+    active_url = URIGrabber.grab
     if active_url.start_with?(Project.first.urlString)
       @active_entry = Entry.create
       @active_entry.start

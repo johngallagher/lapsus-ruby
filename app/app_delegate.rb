@@ -1,24 +1,3 @@
-class FakeURIGrabber
-  attr_accessor :uri
-
-  def grab
-    @uri
-  end
-end
-
-
-class FakeIdleDetector
-  attr_accessor :idle
-
-  def initialize
-    @idle = false
-  end
-
-  def idle?
-    @idle
-  end
-end
-
 class AppDelegate
   include CDQ
   attr_reader :idle_detector, :uri_grabber, :time_class, :tracker
@@ -26,16 +5,11 @@ class AppDelegate
   def applicationDidFinishLaunching(_notification)
     if RUBYMOTION_ENV == 'test'
       cdq.stores.new(in_memory: true)
-      @idle_detector = FakeIdleDetector.new
-      @uri_grabber = FakeURIGrabber.new
-    else
-      @idle_detector = IdleDetector.new
-      @uri_grabber = URIGrabber.new
     end 
 
     cdq.setup
 
-    @tracker = ActiveDocumentTracker.new(cdq, @uri_grabber, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(cdq)
 
     if RUBYMOTION_ENV == 'test'
       @timer = nil

@@ -1,5 +1,5 @@
 class URIGrabber
-  def grab
+  def self.grab
     bundle_identifier = NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
     source = %Q[
       tell application "System Events"
