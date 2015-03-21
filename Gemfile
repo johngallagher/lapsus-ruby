@@ -10,6 +10,7 @@ gem 'pry'
 gem 'bacon'
 gem 'motion-redgreen'
 gem 'nokogiri'
+gem 'motion-stump'
 
 group :motion do
 end

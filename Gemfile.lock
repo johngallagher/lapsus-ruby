@@ -20,6 +20,7 @@ GEM
     motion-bundler (0.2.1)
       thor
     motion-redgreen (1.0.0)
+    motion-stump (0.3.2)
     motion-yaml (1.4)
     multi_json (1.11.0)
     nokogiri (1.6.6.2)
@@ -58,6 +59,7 @@ DEPENDENCIES
   cdq
   motion-bundler
   motion-redgreen
+  motion-stump
   nokogiri
   pry
   rake

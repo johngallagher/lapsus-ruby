@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift('/Library/RubyMotion/lib')
 require 'motion/project/template/osx'
 require 'bubble-wrap/reactor'
+require 'motion-stump'
 
 begin
   require 'bundler'
