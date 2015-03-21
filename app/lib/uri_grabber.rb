@@ -1,7 +1,6 @@
 class URIGrabber
   def self.grab
     bundle_identifier = NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
-    lapsus_bundle_identifier = NSRunningApplication.currentApplication.bundleIdentifier
     return "missingfile://" if bundle_identifier == lapsus_bundle_identifier
 
     active_uri = grab_active_uri_of(bundle_identifier)
@@ -10,6 +9,10 @@ class URIGrabber
     else
       "missingfile://"
     end
+  end
+
+  def self.lapsus_bundle_identifier
+    NSRunningApplication.currentApplication.bundleIdentifier
   end
 
   def self.grab_active_uri_of(bundle_identifier)
