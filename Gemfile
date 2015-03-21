@@ -11,6 +11,7 @@ gem 'bacon'
 gem 'motion-redgreen'
 gem 'nokogiri'
 gem 'motion-stump'
+gem 'flog'
 
 group :motion do
 end
