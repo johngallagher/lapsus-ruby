@@ -4,7 +4,7 @@ describe "application" do
   before do
     @shared_app = NSApplication.sharedApplication
     @app_delegate = @shared_app.delegate
-    @app = LapsusApp.new(@app_delegate.cdq)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
   end
 
   after do
@@ -18,12 +18,12 @@ describe "application" do
     URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
     Time.stub!(:now, return: autoparts_start_time)
 
-    @app.update_active_document
+    @tracker.update
 
     URIGrabber.stub!(:grab, return: "missingfile://")
     Time.stub!(:now, return: autoparts_start_time + 2)
 
-    @app.update_active_document
+    @tracker.update
 
     Entry.count.should == 2
 
@@ -47,12 +47,12 @@ describe "application" do
     URIGrabber.stub!(:grab, return: "missingfile://")
     Time.stub!(:now, return: start_time)
 
-    @app.update_active_document
+    @tracker.update
 
     URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
     Time.stub!(:now, return: start_time + 2)
 
-    @app.update_active_document
+    @tracker.update
 
     Entry.count.should == 2
 
@@ -70,7 +70,7 @@ describe "application" do
     URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
     Time.stub!(:now, return: start_time)
 
-    @app.update_active_document
+    @tracker.update
 
     Entry.count.should == 0
   end

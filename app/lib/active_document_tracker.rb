@@ -1,10 +1,12 @@
 class ActiveDocumentTracker
   def initialize(cdq)
     @cdq = cdq
+    @no_project = Project.create_none
+    @active_projects = Project.active
   end
 
   def update
-    return if Project.active.count == 0
+    return if @active_projects.count == 0
 
     current_project = find_current_project
 
@@ -19,10 +21,10 @@ class ActiveDocumentTracker
 
   def find_current_project
     url = URIGrabber.grab
-    if url.start_with?(Project.active.first.urlString)
-      Project.active.first
+    if url.start_with?(@active_projects.first.urlString)
+      @active_projects.first
     else
-      Project.find_none
+      @no_project
     end
   end
 end
