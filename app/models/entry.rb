@@ -10,4 +10,12 @@ class Entry < CDQManagedObject
     self.finishedAt = Time.now
     self.duration = finishedAt - startedAt
   end
+
+  def description
+    attributes.merge(project: project.attributes)
+  end
+
+  def self.by_time
+    Entry.sort_by(:startedAt)
+  end
 end

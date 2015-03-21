@@ -4,6 +4,9 @@ describe ActiveDocumentTracker do
   before do
     @shared_app = NSApplication.sharedApplication
     @app_delegate = @shared_app.delegate
+
+    @midnight = Time.new(2014, 6, 2, 0, 0, 0)
+    simulate(time: @midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
   end
 
@@ -14,102 +17,94 @@ describe ActiveDocumentTracker do
   it "records time for two projects" do
     autoparts = Project.create(name: "Autoparts", urlString: "file://Users/John/Autoparts")
     careers = Project.create(name: "Careers", urlString: "file://Users/John/Careers")
-    midnight = Time.new(2014, 6, 2, 0, 0, 0)
 
-    URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
-    Time.stub!(:now, return: midnight)
+    simulate(time: @midnight + 2, uri: "file://Users/John/Autoparts/main.rb")
     @tracker.update
 
-    URIGrabber.stub!(:grab, return: "file://Users/John/Careers/main.rb")
-    Time.stub!(:now, return: midnight + 2)
+    simulate(time: @midnight + 4, uri: "file://Users/John/Careers/main.rb")
     @tracker.update
 
-    URIGrabber.stub!(:grab, return: "missingfile://")
-    Time.stub!(:now, return: midnight + 4)
+    simulate(time: @midnight + 6, uri: "missingfile://")
     @tracker.update
 
-    Entry.count.should == 3
+    Entry.count.should == 4
 
-    first_entry = Entry.first
-    first_entry.project.should == autoparts
-    first_entry.startedAt.should == midnight
-    first_entry.finishedAt.should == midnight + 2
-    first_entry.duration.should == 2
+    first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
+    first_entry.project.should == Project.find_none
 
-    second_entry = Entry.all.to_a[1]
-    second_entry.project.should == careers
-    second_entry.startedAt.should == midnight + 2
-    second_entry.finishedAt.should == midnight + 4
-    second_entry.duration.should == 2
+    second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => @midnight + 4, "duration" => 2 }
+    second_entry.project.should == autoparts
 
-    third_entry = Entry.all.to_a[2]
-    third_entry.project.should == Project.find_none
-    third_entry.startedAt.should == midnight + 4
-    third_entry.finishedAt.should.nil?
-    third_entry.duration.should == 0
+    third_entry.attributes.should == { "startedAt" => @midnight + 4, "finishedAt" => @midnight + 6, "duration" => 2 }
+    third_entry.project.should == careers
+
+    fourth_entry.attributes.should == { "startedAt" => @midnight + 6, "finishedAt" => nil, "duration" => 0 }
+    fourth_entry.project.should == Project.find_none
   end
 
   it "records time for a project" do
     autoparts = Project.create(name: "Autoparts", urlString: "file://Users/John/Autoparts", none: 0)
-    autoparts_start_time = Time.new(2014, 6, 2, 0, 0, 0)
 
-    URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
-    Time.stub!(:now, return: autoparts_start_time)
-
+    simulate(time: @midnight + 2, uri: "file://Users/John/Autoparts/main.rb")
     @tracker.update
 
-    URIGrabber.stub!(:grab, return: "missingfile://")
-    Time.stub!(:now, return: autoparts_start_time + 2)
-
+    simulate(time: @midnight + 4, uri: "missingfile://")
     @tracker.update
 
-    Entry.count.should == 2
+    Entry.count.should == 3
 
-    first_entry = Entry.first
-    first_entry.project.should == autoparts
-    first_entry.startedAt.should == autoparts_start_time
-    first_entry.finishedAt.should == autoparts_start_time + 2
-    first_entry.duration.should == 2
+    first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
+    first_entry.project.should == Project.find_none
 
-    second_entry = Entry.all.to_a[1]
-    second_entry.project.should == Project.find_none
-    second_entry.startedAt.should == autoparts_start_time + 2
-    second_entry.finishedAt.should.nil?
-    second_entry.duration.should == 0
+    second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => @midnight + 4, "duration" => 2 }
+    second_entry.project.should == autoparts
+
+    third_entry.attributes.should == { "startedAt" => @midnight + 4, "finishedAt" => nil, "duration" => 0 }
+    third_entry.project.should == Project.find_none
   end
 
   it "assigns off project time to no project" do
     autoparts = Project.create(name: "Autoparts", urlString: "file://Users/John/Autoparts", none: 0)
-    start_time = Time.new(2014, 6, 2, 0, 0, 0)
 
-    URIGrabber.stub!(:grab, return: "missingfile://")
-    Time.stub!(:now, return: start_time)
-
+    simulate(time: @midnight + 2, uri: "missingfile://")
     @tracker.update
 
-    URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
-    Time.stub!(:now, return: start_time + 2)
-
+    simulate(time: @midnight + 4, uri: "file://Users/John/Autoparts/main.rb")
     @tracker.update
 
     Entry.count.should == 2
 
-    first_entry = Entry.first
+    first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 4, "duration" => 4 }
     first_entry.project.should == Project.find_none
-    first_entry.duration.should == 2
 
-    second_entry = Entry.all.to_a[1]
+    second_entry.attributes.should == { "startedAt" => @midnight + 4, "finishedAt" => nil, "duration" => 0 }
     second_entry.project.should == autoparts
   end
 
   it "with no active projects it doesn't track" do
-    start_time = Time.new(2014, 6, 2, 0, 0, 0)
-
-    URIGrabber.stub!(:grab, return: "file://Users/John/Autoparts/main.rb")
-    Time.stub!(:now, return: start_time)
-
     @tracker.update
 
-    Entry.count.should == 0
+    Entry.count.should == 1
   end
+end
+
+def first_entry
+  Entry.by_time.to_a[0]
+end
+
+def second_entry
+  Entry.by_time.to_a[1]
+end
+
+def third_entry
+  Entry.by_time.to_a[2]
+end
+
+def fourth_entry
+  Entry.by_time.to_a[3]
+end
+
+def simulate(attrs)
+  URIGrabber.stub!(:grab, return: attrs[:uri]) if attrs[:uri]
+  Time.stub!(:now, return: attrs.fetch(:time))
 end
