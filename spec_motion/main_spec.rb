@@ -36,7 +36,7 @@ describe "application" do
     second_entry = Entry.all.to_a[1]
     second_entry.project.should == Project.find_none
     second_entry.startedAt.should == autoparts_start_time + 2
-    second_entry.finishedAt.should == nil
+    second_entry.finishedAt.should.nil?
     second_entry.duration.should == 0
   end
 

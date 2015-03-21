@@ -4,17 +4,21 @@ class URIGrabber
     lapsus_bundle_identifier = NSRunningApplication.currentApplication.bundleIdentifier
     return "missingfile://" if bundle_identifier == lapsus_bundle_identifier
 
+    active_uri = grab_active_uri_of(bundle_identifier)
+    if active_uri && active_uri.stringValue
+      active_uri.stringValue
+    else
+      "missingfile://"
+    end
+  end
+
+  def self.grab_active_uri_of(bundle_identifier)
     source = %[
       tell application "System Events"
          value of attribute "AXDocument" of (front window of the (first process whose bundle identifier is "#{bundle_identifier}"))
       end tell
     ]
     script = NSAppleScript.alloc.initWithSource(source)
-    active_url = script.executeAndReturnError(nil)
-    if active_url && active_url.stringValue
-      active_url.stringValue
-    else
-      "missingfile://"
-    end
+    script.executeAndReturnError(nil)
   end
 end

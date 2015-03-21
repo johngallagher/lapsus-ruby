@@ -35,16 +35,4 @@ class AppDelegate
     end
     true
   end
-
-  # Don't need this yet but it'd be good to have just in case
-  def clear
-    Entry.all.each do |p|
-      p.destroy
-    end
-    Project.all.each do |p|
-      p.destroy
-    end
-    cdq.save
-  end
-
 end
