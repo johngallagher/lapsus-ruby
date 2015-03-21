@@ -1,0 +1,18 @@
+---
+IrresponsibleModule:
+ enabled: false
+TooManyStatements:
+ enabled: true
+ exclude: 
+  - 'AppDelegate'
+ max_statements: 9
+UncommunicativeMethodName:
+ enabled: true
+ exclude: 
+  - 'AppDelegate'
+DataClump:
+ max_copies: 3
+ min_clump_size: 3
+DuplicateMethodCall:
+ enabled: true
+ max_calls: 2

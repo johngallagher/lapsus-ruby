@@ -9,6 +9,7 @@ gem 'flog'
 gem 'rubocop'
 gem 'motion-bundler'
 gem 'motion-stump'
+gem 'reek'
 
 group :motion do
 end
