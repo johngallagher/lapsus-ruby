@@ -1,6 +1,5 @@
 class IdleDetector
   def idle?
-    false 
+    false
   end
 end
-

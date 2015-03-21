@@ -1,28 +1,50 @@
+class DbSeeder
+  def initialize(cdq)
+    @cdq = cdq
+  end
+
+  def seed
+    Project.create_none
+    @cdq.save
+  end
+end
+
+class LapsusApp
+  def initialize(cdq)
+    @tracker = ActiveDocumentTracker.new(cdq)
+    DbSeeder.new(cdq).seed
+  end
+
+  def update_active_document
+    @tracker.update
+  end
+end
+
 class AppDelegate
   include CDQ
-  attr_reader :idle_detector, :uri_grabber, :time_class, :tracker
 
   def applicationDidFinishLaunching(_notification)
-    if RUBYMOTION_ENV == 'test'
-      cdq.stores.new(in_memory: true)
-    end 
-
     cdq.setup
 
-    @tracker = ActiveDocumentTracker.new(cdq)
+    @lapsus_app = LapsusApp.new(cdq)
 
-    if RUBYMOTION_ENV == 'test'
-      @timer = nil
-    else
+    if RUBYMOTION_ENV != "test"
       @timer = EM.add_periodic_timer 1.0 do
-        @tracker.update
+        @lapsus_app.update_active_document
       end
     end
     true
   end
 
-  def seed_db
-    Project.create_none
+  # Don't need this yet but it'd be good to have just in case
+  def clear
+    Entry.all.each do |p|
+      p.destroy
+    end
+    Project.all.each do |p|
+      p.destroy
+    end
     cdq.save
   end
+
 end

@@ -25,8 +25,3 @@ MotionBundler.setup do |app|
   app.require 'pathname'
   app.require 'time'
 end
-
-desc "Seed the database with no project" 
-task :seed do
-
-end

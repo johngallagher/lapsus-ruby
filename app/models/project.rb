@@ -1,6 +1,19 @@
 class Project < CDQManagedObject
   def self.create_none
-    Project.create(name: 'None', none: true)
+    none_project = Project.find_none
+    if none_project
+      none_project
+    else
+      Project.create(name: "None", none: 1)
+    end
+  end
+
+  def self.active
+    Project.where(:none).eq(0)
+  end
+
+  def self.find_none
+    Project.where(:none).eq(1).first
   end
 
   def none?

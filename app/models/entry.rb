@@ -1,10 +1,13 @@
 class Entry < CDQManagedObject
-  def start
-    self.startedAt = Time.now
+  def self.start_for_project(project)
+    entry = Entry.create
+    entry.startedAt = Time.now
+    entry.project = project
+    entry
   end
 
   def finish
     self.finishedAt = Time.now
-    self.duration = self.finishedAt - self.startedAt
+    self.duration = finishedAt - startedAt
   end
 end

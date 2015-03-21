@@ -4,21 +4,22 @@ class ActiveDocumentTracker
   end
 
   def update
-    return if Project.count == 0
+    return if Project.active.count == 0
 
     active_url = URIGrabber.grab
-    puts "Active url is #{active_url}"
-    if active_url.start_with?(Project.first.urlString)
-      @active_entry = Entry.create
-      @active_entry.start
-      @active_entry.project = Project.first
-      puts "1"
-    elsif @active_entry
-      @active_entry.finish
-      @cdq.save
-      puts "2"
+    project_for_entry = nil
+    if active_url.start_with?(Project.active.first.urlString)
+      project_for_entry = Project.active.first
     else
-      puts "Nothing"
+      project_for_entry = Project.find_none
     end
+
+    if @active_entry && @active_entry.project != project_for_entry
+      @active_entry.finish
+      @active_entry = Entry.start_for_project(project_for_entry)
+    elsif @active_entry.nil?
+      @active_entry = Entry.start_for_project(project_for_entry)
+    end
+    @cdq.save
   end
 end
