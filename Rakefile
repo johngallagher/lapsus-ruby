@@ -11,7 +11,7 @@ end
 
 
 Motion::Project::App.setup do |app|
-  app.name = 'lapsus'
+  app.name = 'lapsus-ruby'
   app.frameworks += %w(ApplicationServices)
   app.files += Dir.glob(File.join(app.project_dir, 'app/**/*.rb'))
   app.files += Dir.glob(File.join(app.project_dir, 'lib/**/*.rb'))

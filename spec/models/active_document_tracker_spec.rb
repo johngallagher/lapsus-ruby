@@ -1,3 +1,6 @@
+require 'active_document_tracker'
+require 'document'
+
 class InMemoryRepo
   def initialize
     @entries = []
@@ -9,44 +12,6 @@ class InMemoryRepo
 
   def all
     @entries
-  end
-end
-
-class ActiveDocumentTracker
-  def initialize(repo, grabber, idle_detector)
-    @repo, @grabber, @idle_detector = repo, grabber, idle_detector
-  end
-
-  def update(date_time_class = Time)
-    active_document_uri = @grabber.grab.uri
-
-    if !@active_document
-      @active_document = Document.new(active_document_uri)
-      @active_document.start(date_time_class)
-    elsif active_document_uri != @active_document.uri
-      @active_document.finish(date_time_class)
-      @repo.create(@active_document)
-    end
-  end
-end
-
-class Document
-  attr_reader :uri, :started, :finished, :duration
-  def initialize(uri)
-    @uri = uri
-  end
-
-  def start(date_time_class = Time)
-    @started = date_time_class.now
-  end
-
-  def finish(date_time_class = Time)
-    @finished = date_time_class.now
-    @duration = @finished - @started
-  end
-
-  def ==(other)
-    @uri == other.uri
   end
 end
 
@@ -62,7 +27,7 @@ class FakeDate
   attr_accessor :now
 end
 
-class IdleDetector
+class FakeIdleDetector
   attr_writer :user_is_idle
 
   def user_is_idle?
@@ -72,7 +37,7 @@ end
 
 describe ActiveDocumentTracker do
   before do
-    @idle_detector = IdleDetector.new
+    @idle_detector = FakeIdleDetector.new
     @repo = InMemoryRepo.new
     @document_grabber = FakeDocumentGrabber.new
     @tracker = ActiveDocumentTracker.new(@repo, @document_grabber, @idle_detector)
