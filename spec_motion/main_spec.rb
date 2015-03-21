@@ -75,26 +75,3 @@ describe "application" do
     Entry.count.should == 0
   end
 end
-
-describe DbSeeder do
-  before do
-    class << self
-      include CDQ
-    end
-
-    cdq.setup
-  end
-
-  after do
-    cdq.reset!
-  end
-
-  it "seeds the database with no project" do
-    Project.count.should == 0
-
-    DbSeeder.new(cdq).seed
-
-    Project.count.should == 1
-    Project.first.none?.should == true
-  end
-end
