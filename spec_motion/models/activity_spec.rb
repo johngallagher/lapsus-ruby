@@ -11,6 +11,12 @@ describe Activity do
     cdq.reset!
   end
 
+  it "finds projects" do
+    Activity.create(name: 'Careers')
+    Activity.create(name: 'Autoparts')
+    Activity.projects.map(&:name).should == ['Autoparts', 'Careers']
+  end
+
   it "creates just one off project" do
     Activity.find_or_create_none
     Activity.find_or_create_none

@@ -17,7 +17,7 @@ class Activity < CDQManagedObject
     end
   end
 
-  def self.active
+  def self.projects
     Activity.where(:type).eq("project").sort_by(:name)
   end
 
