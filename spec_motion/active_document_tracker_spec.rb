@@ -118,9 +118,25 @@ describe ActiveDocumentTracker do
     first_entry.activity.should == none
   end
 
-  # it "continues recording when user is idle for less than the threshold then becomes active" do
+  it "continues recording when user is idle for less than the threshold then becomes active" do
+    assume_autoparts_activity
 
-  # end
+    wait_until(@midnight)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+
+    user_is_idle
+    wait_until(@midnight + idle_threshold - 4)
+    @tracker.update
+
+    user_is_active
+    wait_until(@midnight + idle_threshold - 2)
+    @tracker.update
+
+    Entry.count.should == 1
+
+    first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => nil, "duration" => 0 }
+    first_entry.activity.should == none
+  end
 
   it "stops recording when the user has been idle for more than the threshold" do
     assume_autoparts_activity
