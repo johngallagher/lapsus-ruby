@@ -115,6 +115,29 @@ describe ActiveDocumentTracker do
     second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => nil, "duration" => 0 }
     second_entry.project.should == Project.find_idle
   end
+
+  it "continues recording when the user wakes up" do
+    @idle_detector.idle = true
+    @tracker.update
+
+    simulate(time: @midnight + ActiveDocumentTracker::IDLE_TIME + 2, uri: "missingfile://")
+    @tracker.update
+
+    @idle_detector.idle = false
+    simulate(time: @midnight + ActiveDocumentTracker::IDLE_TIME + 10, uri: "missingfile://")
+    @tracker.update
+
+    Entry.count.should == 3
+
+    first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
+    first_entry.project.should == Project.find_none
+
+    second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => @midnight + ActiveDocumentTracker::IDLE_TIME + 10, "duration" => ActiveDocumentTracker::IDLE_TIME + 8 }
+    second_entry.project.should == Project.find_idle
+
+    third_entry.attributes.should == { "startedAt" => @midnight + ActiveDocumentTracker::IDLE_TIME + 10, "finishedAt" => nil, "duration" => 0 }
+    third_entry.project.should == Project.find_none
+  end
 end
 
 def first_entry
