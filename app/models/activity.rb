@@ -1,9 +1,9 @@
 class Activity < CDQManagedObject
-  IDLE_NAME = 'Idle'
-  IDLE_TYPE = 'idle'
-  NONE_NAME = 'None'
-  NONE_TYPE = 'none'
-  PROJECT_TYPE = 'project'
+  IDLE_NAME = "Idle"
+  IDLE_TYPE = "idle"
+  NONE_NAME = "None"
+  NONE_TYPE = "none"
+  PROJECT_TYPE = "project"
 
   def self.find_or_create_none
     return none if none
