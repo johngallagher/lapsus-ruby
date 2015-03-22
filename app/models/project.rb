@@ -4,7 +4,7 @@ class Project < CDQManagedObject
     if none_project
       none_project
     else
-      Project.create(name: "None", none: 1)
+      Project.create(name: "None", type: "none")
     end
   end
 
@@ -13,27 +13,19 @@ class Project < CDQManagedObject
     if idle
       return idle
     else
-      Project.create(name: "Idle")
+      Project.create(name: "Idle", type: "idle")
     end
-  end
-
-  def self.find_idle
-    Project.where(:name).eq("Idle").first
   end
 
   def self.active
-    Project.where(:none).eq(0)
+    Project.where(:type).eq("project")
+  end
+
+  def self.find_idle
+    Project.where(:type).eq("idle").first
   end
 
   def self.find_none
-    Project.where(:none).eq(1).first
-  end
-
-  def none?
-    if none == 1
-      true
-    else
-      false
-    end
+    Project.where(:type).eq("none").first
   end
 end

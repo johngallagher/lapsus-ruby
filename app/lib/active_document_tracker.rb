@@ -9,6 +9,7 @@ class ActiveDocumentTracker
     @active_projects = Project.active.sort_by(:name)
     @active_entry = Entry.start(@no_project)
     @idle_detector = idle_detector
+    @started_idling_at = nil
   end
 
   def update
