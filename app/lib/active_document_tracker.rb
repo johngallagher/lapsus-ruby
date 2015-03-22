@@ -7,9 +7,10 @@ class ActiveDocumentTracker
   end
 
   def update
-    activity = Activity.current
+    uri = URIGrabber.grab
+    activity = Activity.current_from_active_uri(uri)
 
-    return if @entry.activity == activity
+    return if @entry.activity == activity || activity.previous?
 
     @entry.finish(activity)
     @entry = Entry.start(activity)

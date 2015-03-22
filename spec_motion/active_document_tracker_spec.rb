@@ -133,6 +133,36 @@ describe ActiveDocumentTracker do
     third_entry.attributes.should == { "startedAt" => @midnight + idle_threshold + 4, "finishedAt" => nil, "duration" => 0 }
     third_entry.activity.should == none
   end
+
+  it "when the user looks at a web page it assigns the last active project" do
+    assume_autoparts_activity
+
+    user_is_active
+    wait_until(@midnight)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+
+    wait_until(@midnight + 2)
+    active_uri_is("file://Users/John/Autoparts/main.rb")
+    @tracker.update
+
+    wait_until(@midnight + 4)
+    active_uri_is("http://www.google.co.uk")
+    @tracker.update
+
+    wait_until(@midnight + 6)
+    active_uri_is("missingfile://")
+    @tracker.update
+
+    Entry.count.should == 3
+
+    first_entry.activity.should == none
+    second_entry.activity.should == @autoparts
+    third_entry.activity.should == none
+
+    second_entry.startedAt.should == @midnight + 2
+    second_entry.finishedAt.should == @midnight + 6
+    second_entry.duration.should == 4
+  end
 end
 
 def first_entry
