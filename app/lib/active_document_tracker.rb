@@ -4,9 +4,9 @@ class ActiveDocumentTracker
 
   def initialize(cdq, idle_detector = IdleDetector.new)
     @cdq = cdq
-    @no_project = Project.create_none
-    @idle_project = Project.create_idle
-    @active_projects = Project.active.sort_by(:name)
+    @no_project = Project.find_or_create_none
+    @idle_project = Project.find_or_create_idle
+    @active_projects = Project.active
     @active_entry = Entry.start(@no_project)
     @idle_detector = idle_detector
     @started_idling_at = nil
