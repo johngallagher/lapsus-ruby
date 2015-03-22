@@ -9,8 +9,6 @@ class ActiveDocumentTracker
   end
 
   def update
-    return if @projects.count == 0
-
     activity = Activity.current(@user)
 
     return if @entry.activity == activity

@@ -19,6 +19,7 @@ class Activity < CDQManagedObject
 
   def self.current(user)
     return Activity.find_idle if user.idle?
+    return Activity.find_none if Activity.projects.array.empty?
 
     active_uri = URIGrabber.grab
     Activity.projects.find(->{ Activity.find_none }){ |project| active_uri.start_with?(project.urlString) }

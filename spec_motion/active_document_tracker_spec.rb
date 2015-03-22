@@ -109,12 +109,13 @@ describe ActiveDocumentTracker do
     second_entry.activity.should == @autoparts
   end
 
-  it "with no active activities it doesn't track" do
+  it "with no projects it only tracks none" do
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
     @tracker.update
 
     Entry.count.should == 1
+    first_entry.activity.should == none
   end
 
   # it "continues recording when user is idle for less than the threshold then becomes active" do
