@@ -17,6 +17,13 @@ class Activity < CDQManagedObject
     end
   end
 
+  def self.current(user)
+    return Activity.find_idle if user.idle?
+
+    active_uri = URIGrabber.grab
+    Activity.projects.find(->{ Activity.find_none }){ |project| active_uri.start_with?(project.urlString) }
+  end
+
   def self.projects
     Activity.where(:type).eq("project").sort_by(:name)
   end

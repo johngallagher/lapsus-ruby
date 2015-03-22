@@ -11,20 +11,13 @@ class ActiveDocumentTracker
   def update
     return if @projects.count == 0
 
-    activity = find_activity
+    activity = Activity.current(@user)
 
     return if @entry.activity == activity
 
     @entry.finish(activity)
     @entry = Entry.start(activity)
     @cdq.save
-  end
-
-  def find_activity
-    return @idle if @user.idle?
-
-    url = URIGrabber.grab
-    @projects.find(->{ @none }){ |project| url.start_with?(project.urlString) }
   end
 end
 
