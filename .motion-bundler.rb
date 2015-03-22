@@ -44,8 +44,8 @@ module MotionBundler
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/active_document_tracker.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/idle_detector.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/uri_grabber.rb",
-    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/entry.rb",
-    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/project.rb"
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/activity.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/entry.rb"
   ]
   FILES_DEPENDENCIES = {
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/boot.rb" => [

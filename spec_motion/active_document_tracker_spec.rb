@@ -26,9 +26,9 @@ describe ActiveDocumentTracker do
     @app_delegate.cdq.reset!
   end
 
-  it "records time for two projects" do
-    assume_autoparts_project
-    assume_careers_project
+  it "records time for two activities" do
+    assume_autoparts_activity
+    assume_careers_activity
 
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
@@ -48,20 +48,20 @@ describe ActiveDocumentTracker do
     Entry.count.should == 4
 
     first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
-    first_entry.project.should == none
+    first_entry.activity.should == none
 
     second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => @midnight + 4, "duration" => 2 }
-    second_entry.project.should == @autoparts
+    second_entry.activity.should == @autoparts
 
     third_entry.attributes.should == { "startedAt" => @midnight + 4, "finishedAt" => @midnight + 6, "duration" => 2 }
-    third_entry.project.should == @careers
+    third_entry.activity.should == @careers
 
     fourth_entry.attributes.should == { "startedAt" => @midnight + 6, "finishedAt" => nil, "duration" => 0 }
-    fourth_entry.project.should == none
+    fourth_entry.activity.should == none
   end
 
-  it "records time for a project" do
-    assume_autoparts_project
+  it "records time for a activity" do
+    assume_autoparts_activity
 
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
@@ -77,17 +77,17 @@ describe ActiveDocumentTracker do
     Entry.count.should == 3
 
     first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
-    first_entry.project.should == none
+    first_entry.activity.should == none
 
     second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => @midnight + 4, "duration" => 2 }
-    second_entry.project.should == @autoparts
+    second_entry.activity.should == @autoparts
 
     third_entry.attributes.should == { "startedAt" => @midnight + 4, "finishedAt" => nil, "duration" => 0 }
-    third_entry.project.should == none
+    third_entry.activity.should == none
   end
 
-  it "assigns off project time to no project" do
-    assume_autoparts_project
+  it "assigns off activity time to no activity" do
+    assume_autoparts_activity
 
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
@@ -103,13 +103,13 @@ describe ActiveDocumentTracker do
     Entry.count.should == 2
 
     first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 4, "duration" => 4 }
-    first_entry.project.should == none
+    first_entry.activity.should == none
 
     second_entry.attributes.should == { "startedAt" => @midnight + 4, "finishedAt" => nil, "duration" => 0 }
-    second_entry.project.should == @autoparts
+    second_entry.activity.should == @autoparts
   end
 
-  it "with no active projects it doesn't track" do
+  it "with no active activities it doesn't track" do
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
     @tracker.update
@@ -122,7 +122,7 @@ describe ActiveDocumentTracker do
   # end
 
   it "stops recording when the user has been idle for more than the threshold" do
-    assume_autoparts_project
+    assume_autoparts_activity
 
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
@@ -138,14 +138,14 @@ describe ActiveDocumentTracker do
     Entry.count.should == 2
 
     first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
-    first_entry.project.should == none
+    first_entry.activity.should == none
 
     second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => nil, "duration" => 0 }
-    second_entry.project.should == idle
+    second_entry.activity.should == idle
   end
 
   it "continues recording when the user wakes up" do
-    assume_autoparts_project
+    assume_autoparts_activity
 
     wait_until(@midnight)
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
@@ -165,13 +165,13 @@ describe ActiveDocumentTracker do
     Entry.count.should == 3
 
     first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
-    first_entry.project.should == none
+    first_entry.activity.should == none
 
     second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => @midnight + idle_threshold + 10, "duration" => idle_threshold + 8 }
-    second_entry.project.should == idle
+    second_entry.activity.should == idle
 
     third_entry.attributes.should == { "startedAt" => @midnight + idle_threshold + 10, "finishedAt" => nil, "duration" => 0 }
-    third_entry.project.should == none
+    third_entry.activity.should == none
   end
 end
 
@@ -221,17 +221,17 @@ def idle_threshold
 end
 
 def idle
-  Project.find_idle
+  Activity.find_idle
 end
 
 def none
-  Project.find_none
+  Activity.find_none
 end
 
-def assume_autoparts_project
-  @autoparts = Project.create(name: "Autoparts", urlString: "file://Users/John/Autoparts")
+def assume_autoparts_activity
+  @autoparts = Activity.create(name: "Autoparts", urlString: "file://Users/John/Autoparts")
 end
 
-def assume_careers_project
-  @careers = Project.create(name: "Careers", urlString: "file://Users/John/Careers")
+def assume_careers_activity
+  @careers = Activity.create(name: "Careers", urlString: "file://Users/John/Careers")
 end

@@ -2,13 +2,12 @@ schema "001" do
   entity "Entry" do
     datetime :startedAt
     datetime :finishedAt
-
     integer64 :duration
 
-    belongs_to :project
+    belongs_to :activity
   end
 
-  entity "Project" do
+  entity "Activity" do
     string :name
     string :urlString
     string :type, default: "project"
@@ -21,6 +20,6 @@ schema "001" do
     string :name
     string :path
 
-    has_many :projects
+    has_many :activities
   end
 end

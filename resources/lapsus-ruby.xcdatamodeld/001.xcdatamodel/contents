@@ -4,18 +4,18 @@
     <attribute optional="YES" syncable="YES" attributeType="Date" name="startedAt"/>
     <attribute optional="YES" syncable="YES" attributeType="Date" name="finishedAt"/>
     <attribute optional="YES" syncable="YES" attributeType="Integer 64" name="duration" defaultValueString="0"/>
-    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="project" inverseEntity="Project" destinationEntity="Project" inverseName="entries" maxCount="1"/>
+    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="activity" inverseEntity="Activity" destinationEntity="Activity" inverseName="entries" maxCount="1"/>
   </entity>
-  <entity name="Project" syncable="YES" representedClassName="Project">
+  <entity name="Activity" syncable="YES" representedClassName="Activity">
     <attribute optional="YES" syncable="YES" attributeType="String" name="name"/>
     <attribute optional="YES" syncable="YES" attributeType="String" name="urlString"/>
     <attribute optional="YES" syncable="YES" attributeType="String" name="type" defaultValueString="project"/>
-    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="entries" inverseEntity="Entry" destinationEntity="Entry" inverseName="project" toMany="YES"/>
-    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="container" inverseEntity="Container" destinationEntity="Container" inverseName="projects" maxCount="1"/>
+    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="entries" inverseEntity="Entry" destinationEntity="Entry" inverseName="activity" toMany="YES"/>
+    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="container" inverseEntity="Container" destinationEntity="Container" inverseName="activities" maxCount="1"/>
   </entity>
   <entity name="Container" syncable="YES" representedClassName="Container">
     <attribute optional="YES" syncable="YES" attributeType="String" name="name"/>
     <attribute optional="YES" syncable="YES" attributeType="String" name="path"/>
-    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="projects" inverseEntity="Project" destinationEntity="Project" inverseName="container" toMany="YES"/>
+    <relationship optional="YES" deletionRule="Nullify" syncable="YES" name="activities" inverseEntity="Activity" destinationEntity="Activity" inverseName="container" toMany="YES"/>
   </entity>
 </model>
