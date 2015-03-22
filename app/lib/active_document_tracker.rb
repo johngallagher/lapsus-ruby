@@ -20,7 +20,7 @@ class ActiveDocumentTracker
 end
 
 class User
-  IDLE_TIME = 30
+  IDLE_THRESHOLD = 30
 
   def initialize
     @started_idling_at = nil
@@ -29,7 +29,7 @@ class User
   def idle?
     @started_idling_at = Time.now if IdleDetector.idle? && !@started_idling_at
 
-    if IdleDetector.idle? && @started_idling_at + IDLE_TIME <= Time.now
+    if IdleDetector.idle? && @started_idling_at + IDLE_THRESHOLD <= Time.now
       @started_idling_at = nil
       true
     else

@@ -234,7 +234,7 @@ def active_uri_is(uri)
 end
 
 def idle_threshold
-  User::IDLE_TIME
+  User::IDLE_THRESHOLD
 end
 
 def idle
