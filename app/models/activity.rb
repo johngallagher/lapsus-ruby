@@ -17,8 +17,8 @@ class Activity < CDQManagedObject
     create(name: IDLE_NAME, type: IDLE_TYPE)
   end
 
-  def self.current(user)
-    return idle if user.idle?
+  def self.current
+    return idle if IdleDetector.idle?
     return none if projects.array.empty?
 
     active_uri = URIGrabber.grab

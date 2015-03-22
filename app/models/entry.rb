@@ -13,7 +13,7 @@ class Entry < CDQManagedObject
 
   def self.now_adjusted_for_idle_time(activity)
     if activity.idle?
-      Time.now - User::IDLE_THRESHOLD
+      Time.now - IdleDetector::IDLE_THRESHOLD
     else
       Time.now
     end
