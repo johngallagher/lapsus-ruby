@@ -1,15 +1,11 @@
-
 class ActiveDocumentTracker
-  IDLE_TIME = 30
-
-  def initialize(cdq, idle_detector = IdleDetector.new)
+  def initialize(cdq)
     @cdq = cdq
     @none = Activity.find_or_create_none
     @idle = Activity.find_or_create_idle
     @projects = Activity.projects
     @entry = Entry.start(@none)
-    @idle_detector = idle_detector
-    @started_idling_at = nil
+    @user = User.new
   end
 
   def update
@@ -19,23 +15,34 @@ class ActiveDocumentTracker
 
     return if @entry.activity == activity
 
-    changed_activity_at = Time.now
-    changed_activity_at = Time.now - IDLE_TIME if activity == @idle
-
-    @entry.finish(changed_activity_at)
-    @entry = Entry.start(activity, changed_activity_at)
+    @entry.finish(activity)
+    @entry = Entry.start(activity)
     @cdq.save
   end
 
   def find_activity
-    @started_idling_at = Time.now if @idle_detector.idle? && !@started_idling_at
+    return @idle if @user.idle?
 
-    if @idle_detector.idle? && @started_idling_at + IDLE_TIME <= Time.now
+    url = URIGrabber.grab
+    @projects.find(->{ @none }){ |project| url.start_with?(project.urlString) }
+  end
+end
+
+class User
+  IDLE_TIME = 30
+
+  def initialize
+    @started_idling_at = nil
+  end
+
+  def idle?
+    @started_idling_at = Time.now if IdleDetector.idle? && !@started_idling_at
+
+    if IdleDetector.idle? && @started_idling_at + IDLE_TIME <= Time.now
       @started_idling_at = nil
-      return @idle
+      true
     else
-      url = URIGrabber.grab
-      @projects.find(->{ @none }){ |project| url.start_with?(project.urlString) }
+      false
     end
   end
 end

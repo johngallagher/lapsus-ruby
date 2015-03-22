@@ -28,4 +28,8 @@ class Activity < CDQManagedObject
   def self.find_none
     Activity.where(:type).eq("none").first
   end
+
+  def idle?
+    type == "idle"
+  end
 end

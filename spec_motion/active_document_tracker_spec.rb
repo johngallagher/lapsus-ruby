@@ -31,7 +31,7 @@ describe ActiveDocumentTracker do
     assume_careers_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
 
     wait_until(@midnight + 2)
     active_uri_is("file://Users/John/Autoparts/main.rb")
@@ -64,7 +64,7 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
 
     wait_until(@midnight + 2)
     active_uri_is("file://Users/John/Autoparts/main.rb")
@@ -90,7 +90,7 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
 
     wait_until(@midnight + 2)
     active_uri_is("missingfile://")
@@ -111,7 +111,7 @@ describe ActiveDocumentTracker do
 
   it "with no active activities it doesn't track" do
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
     @tracker.update
 
     Entry.count.should == 1
@@ -125,7 +125,7 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
 
     user_is_idle
     wait_until(@midnight + 2)
@@ -148,7 +148,7 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
 
     user_is_idle
     wait_until(@midnight + 2)
@@ -197,11 +197,11 @@ def simulate(attrs)
 end
 
 def user_is_idle
-  @idle_detector.idle = true
+  IdleDetector.stub!(:idle?, return: true)
 end
 
 def user_is_active
-  @idle_detector.idle = false
+  IdleDetector.stub!(:idle?, return: true)
 end
 
 def wait_until(time)
@@ -217,7 +217,7 @@ def active_uri_is(uri)
 end
 
 def idle_threshold
-  ActiveDocumentTracker::IDLE_TIME
+  User::IDLE_TIME
 end
 
 def idle

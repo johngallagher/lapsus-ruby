@@ -1,8 +1,5 @@
 class IdleDetector
-  def initialize
-  end
-
-  def idle?
+  def self.idle?
     false
   end
 end
