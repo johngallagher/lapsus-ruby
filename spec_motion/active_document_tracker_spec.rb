@@ -222,11 +222,11 @@ def idle_threshold
 end
 
 def idle
-  Activity.find_idle
+  Activity.idle
 end
 
 def none
-  Activity.find_none
+  Activity.none
 end
 
 def assume_autoparts_activity
