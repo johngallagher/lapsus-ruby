@@ -5,6 +5,7 @@ describe Activity do
     end
 
     cdq.setup
+    cdq.reset!
   end
 
   after do
@@ -35,5 +36,10 @@ describe Activity do
 
   it "defaults to a project" do
     Activity.create.type.should == "project"
+  end
+
+  it "returns the idle project if the user is idle" do
+    IdleDetector.stub!(:idle?, return: true)
+    Activity.current.should == Activity.idle
   end
 end

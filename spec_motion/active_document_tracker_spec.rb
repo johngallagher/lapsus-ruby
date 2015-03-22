@@ -8,6 +8,8 @@ describe ActiveDocumentTracker do
     @midnight = Time.new(2014, 6, 2, 0, 0, 0)
     user_is_active
     active_uri_is("missingfile://")
+    @app_delegate.cdq.setup
+    @app_delegate.cdq.reset!
   end
 
   after do
@@ -131,7 +133,6 @@ describe ActiveDocumentTracker do
     third_entry.attributes.should == { "startedAt" => @midnight + idle_threshold + 4, "finishedAt" => nil, "duration" => 0 }
     third_entry.activity.should == none
   end
-
 end
 
 def first_entry
