@@ -6,6 +6,6 @@ class IdleDetector
   end
 
   def self.time_since_last_event
-    CGEventSourceSecondsSinceLastEventType(KCGEventSourceStateHIDSystemState, KCGAnyInputEventType)
+    CGEventSourceSecondsSinceLastEventType(KCGEventSourceStateCombinedSessionState, KCGAnyInputEventType)
   end
 end
