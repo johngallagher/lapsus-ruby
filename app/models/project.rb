@@ -8,6 +8,19 @@ class Project < CDQManagedObject
     end
   end
 
+  def self.create_idle
+    idle = Project.find_idle
+    if idle
+      return idle
+    else
+      Project.create(name: "Idle")
+    end
+  end
+
+  def self.find_idle
+    Project.where(:name).eq("Idle").first
+  end
+
   def self.active
     Project.where(:none).eq(0)
   end

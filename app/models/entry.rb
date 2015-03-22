@@ -1,17 +1,17 @@
 class Entry < CDQManagedObject
-  def self.start_for_project(project)
+  def self.start(project, start_at = Time.now)
     entry = Entry.create
-    entry.startedAt = Time.now
+    entry.startedAt = start_at
     entry.project = project
     entry
   end
 
-  def finish
-    self.finishedAt = Time.now
+  def finish(finish_at = Time.now)
+    self.finishedAt = finish_at
     self.duration = finishedAt - startedAt
   end
 
-  def description
+  def to_s
     attributes.merge(project: project.attributes)
   end
 

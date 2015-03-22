@@ -1,5 +1,17 @@
 require "spec_helper"
 
+class FakeIdleDetector
+  attr_writer :idle
+
+  def initialize
+    @idle = false
+  end
+
+  def idle?
+    @idle
+  end
+end
+
 describe ActiveDocumentTracker do
   before do
     @shared_app = NSApplication.sharedApplication
@@ -7,7 +19,8 @@ describe ActiveDocumentTracker do
 
     @midnight = Time.new(2014, 6, 2, 0, 0, 0)
     simulate(time: @midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    @idle_detector = FakeIdleDetector.new
+    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, @idle_detector)
   end
 
   after do
@@ -85,6 +98,22 @@ describe ActiveDocumentTracker do
     @tracker.update
 
     Entry.count.should == 1
+  end
+
+  it "stops recording when the user has been idle for a set period" do
+    @idle_detector.idle = true
+    @tracker.update
+
+    simulate(time: @midnight + ActiveDocumentTracker::IDLE_TIME + 2, uri: "missingfile://")
+    @tracker.update
+
+    Entry.count.should == 2
+
+    first_entry.attributes.should == { "startedAt" => @midnight, "finishedAt" => @midnight + 2, "duration" => 2 }
+    first_entry.project.should == Project.find_none
+
+    second_entry.attributes.should == { "startedAt" => @midnight + 2, "finishedAt" => nil, "duration" => 0 }
+    second_entry.project.should == Project.find_idle
   end
 end
 
