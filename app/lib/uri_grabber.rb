@@ -1,13 +1,15 @@
 class URIGrabber
-  def self.grab
-    bundle_identifier = NSWorkspace.sharedWorkspace.frontmostApplication.bundleIdentifier
-    return "missingfile://" if bundle_identifier == lapsus_bundle_identifier
+  MISSING_FILE_URL = "missingfile://"
 
-    active_uri = grab_active_uri_of(bundle_identifier)
+  def self.grab
+    frontmost_application = NSWorkspace.sharedWorkspace.frontmostApplication
+    return MISSING_FILE_URL if frontmost_application.bundleIdentifier == lapsus_bundle_identifier
+
+    active_uri = grab_active_uri_of(frontmost_application)
     if active_uri && active_uri.stringValue
       active_uri.stringValue
     else
-      "missingfile://"
+      MISSING_FILE_URL
     end
   end
 
@@ -15,13 +17,19 @@ class URIGrabber
     NSRunningApplication.currentApplication.bundleIdentifier
   end
 
-  def self.grab_active_uri_of(bundle_identifier)
-    source = %[
-      tell application "System Events"
-         value of attribute "AXDocument" of (front window of the (first process whose bundle identifier is "#{bundle_identifier}"))
-      end tell
-    ]
+  def self.grab_active_uri_of(application)
+    source = source_from_application(application)
     script = NSAppleScript.alloc.initWithSource(source)
     script.executeAndReturnError(nil)
+  end
+
+  def self.source_from_application(application)
+    if application.bundleIdentifier == 'com.google.Chrome'
+      %Q[ tell application "Google Chrome" to return URL of active tab of front window ]
+    elsif application.bundleIdentifier == 'com.apple.Safari'
+      %Q[ tell application "Safari" to return URL of front document ]
+    else
+      %Q[ tell application "System Events" to return value of attribute "AXDocument" of (front window of the ( process whose unix id is #{application.processIdentifier})) ]
+    end
   end
 end
