@@ -7,7 +7,7 @@ describe ActiveDocumentTracker do
 
     @midnight = Time.new(2014, 6, 2, 0, 0, 0)
     user_is_active
-    active_uri_is("missingfile://")
+    active_uri_is(URIGrabber::MISSING_FILE_URL)
     @app_delegate.cdq.setup
     @app_delegate.cdq.reset!
   end
@@ -32,7 +32,7 @@ describe ActiveDocumentTracker do
     @tracker.update
 
     wait_until(@midnight + 6)
-    active_uri_is("missingfile://")
+    active_uri_is(URIGrabber::MISSING_FILE_URL)
     @tracker.update
 
     Entry.count.should == 4
@@ -61,7 +61,7 @@ describe ActiveDocumentTracker do
     @tracker.update
 
     wait_until(@midnight + 4)
-    active_uri_is("missingfile://")
+    active_uri_is(URIGrabber::MISSING_FILE_URL)
     @tracker.update
 
     Entry.count.should == 3
@@ -83,7 +83,7 @@ describe ActiveDocumentTracker do
     @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
 
     wait_until(@midnight + 2)
-    active_uri_is("missingfile://")
+    active_uri_is(URIGrabber::MISSING_FILE_URL)
     @tracker.update
 
     wait_until(@midnight + 4)
@@ -150,7 +150,7 @@ describe ActiveDocumentTracker do
     @tracker.update
 
     wait_until(@midnight + 6)
-    active_uri_is("missingfile://")
+    active_uri_is(URIGrabber::MISSING_FILE_URL)
     @tracker.update
 
     Entry.count.should == 3

@@ -61,7 +61,7 @@ describe Activity do
     Activity.create(name: 'Lapsus', urlString: 'file://localhost/Users/j/lapsus')
     IdleDetector.stub!(:idle?, return: false)
 
-    current = Activity.current_from_active_uri('missingfile://')
+    current = Activity.current_from_active_uri(URIGrabber::MISSING_FILE_URL)
     current.should == Activity.none
   end
 
