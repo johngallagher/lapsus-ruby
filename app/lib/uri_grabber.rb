@@ -29,7 +29,7 @@ class URIGrabber
     elsif application.bundleIdentifier == 'com.apple.Safari'
       %Q[ tell application "Safari" to return URL of front document ]
     else
-      %Q[ tell application "System Events" to return value of attribute "AXDocument" of (front window of the ( process whose unix id is #{application.processIdentifier})) ]
+      %Q[ tell application "System Events" to return value of attribute "AXDocument" of (front window of (first process whose unix id is #{application.processIdentifier})) ]
     end
   end
 end
