@@ -23,4 +23,6 @@ MotionBundler.setup do |app|
   app.require 'ostruct'
   app.require 'pathname'
   app.require 'time'
+  app.require 'uri/common'
+  app.require 'uri/generic'
 end

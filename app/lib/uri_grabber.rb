@@ -7,10 +7,16 @@ class URIGrabber
 
     active_uri = grab_active_uri_of(frontmost_application)
     if active_uri && active_uri.stringValue
-      active_uri.stringValue
+      standardised_uri(active_uri.stringValue)
     else
       MISSING_FILE_URL
     end
+  end
+
+  def self.standardised_uri(uri)
+    standardised_uri = URI(uri)
+    standardised_uri.host = 'localhost' if standardised_uri.host.nil? && standardised_uri.scheme == 'file'
+    standardised_uri.to_s
   end
 
   def self.lapsus_bundle_identifier

@@ -1,8 +1,9 @@
 module MotionBundler
   FILES = [
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/.motion-bundler.rb",
-    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/boot.rb",
-    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/core_ext.rb",
+    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/boot.rb",
+    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/core_ext.rb",
+    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/console.rb",
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/bubble-wrap-1.7.1/motion/shortcut.rb",
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/bubble-wrap-1.7.1/lib/bubble-wrap/version.rb",
     "/Users/johngallagher/.gem/ruby/2.2.0/gems/bubble-wrap-1.7.1/motion/util/deprecated.rb",
@@ -40,6 +41,8 @@ module MotionBundler
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/pathname.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/time.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/date/format.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/uri/common.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/uri/generic.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/app_delegate.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/active_document_tracker.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/idle_detector.rb",
@@ -48,20 +51,24 @@ module MotionBundler
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/entry.rb"
   ]
   FILES_DEPENDENCIES = {
-    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/boot.rb" => [
-      "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/core_ext.rb"
+    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/boot.rb" => [
+      "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/core_ext.rb",
+      "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/console.rb"
     ],
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/time.rb" => [
       "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/date/format.rb"
     ]
   }
   REQUIRES = [
-    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/device/boot.rb",
+    "/Users/johngallagher/.gem/ruby/2.2.0/gems/motion-bundler-0.2.1/lib/motion-bundler/simulator/boot.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/.motion-bundler.rb",
+    "console",
     "core_ext",
     "date/format",
     "ostruct",
     "pathname",
-    "time"
+    "time",
+    "uri/common",
+    "uri/generic"
   ]
 end
