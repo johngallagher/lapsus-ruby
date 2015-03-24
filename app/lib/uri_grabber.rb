@@ -1,35 +1,31 @@
 class URIGrabber
   MISSING_FILE_URL = "missingfile://"
 
-  def self.grab
-    frontmost_application = NSWorkspace.sharedWorkspace.frontmostApplication
+  def initialize(workspace, current_application)
+    @current_application = current_application
+    @workspace = workspace
+  end
+
+  def grab
+    frontmost_application = @workspace.frontmostApplication
     return MISSING_FILE_URL if frontmost_application.bundleIdentifier == lapsus_bundle_identifier
 
-    active_uri = grab_active_uri_of(frontmost_application)
+    source = source_from_application(frontmost_application)
+    active_uri = AppleScriptRunner.run(source)
     if active_uri && active_uri.stringValue
-      standardised_uri(active_uri.stringValue)
+      standardised_uri = URI(active_uri.stringValue)
+      standardised_uri.host = 'localhost' if standardised_uri.host.nil? && standardised_uri.scheme == 'file'
+      standardised_uri.to_s
     else
       MISSING_FILE_URL
     end
   end
 
-  def self.standardised_uri(uri)
-    standardised_uri = URI(uri)
-    standardised_uri.host = 'localhost' if standardised_uri.host.nil? && standardised_uri.scheme == 'file'
-    standardised_uri.to_s
+  def lapsus_bundle_identifier
+    @current_application.bundleIdentifier
   end
 
-  def self.lapsus_bundle_identifier
-    NSRunningApplication.currentApplication.bundleIdentifier
-  end
-
-  def self.grab_active_uri_of(application)
-    source = source_from_application(application)
-    script = NSAppleScript.alloc.initWithSource(source)
-    script.executeAndReturnError(nil)
-  end
-
-  def self.source_from_application(application)
+  def source_from_application(application)
     if application.bundleIdentifier == 'com.google.Chrome'
       %Q[ tell application "Google Chrome" to return URL of active tab of front window ]
     elsif application.bundleIdentifier == 'com.apple.Safari'
@@ -37,5 +33,11 @@ class URIGrabber
     else
       %Q[ tell application "System Events" to return value of attribute "AXDocument" of (front window of (first process whose unix id is #{application.processIdentifier})) ]
     end
+  end
+end
+
+class AppleScriptRunner
+  def self.run(source)
+    NSAppleScript.alloc.initWithSource(source).executeAndReturnError(nil)
   end
 end

@@ -4,12 +4,11 @@ describe ActiveDocumentTracker do
   before do
     @shared_app = NSApplication.sharedApplication
     @app_delegate = @shared_app.delegate
+    @app_delegate.cdq.setup
+    @app_delegate.cdq.reset!
 
     @midnight = Time.new(2014, 6, 2, 0, 0, 0)
     user_is_active
-    active_uri_is(URIGrabber::MISSING_FILE_URL)
-    @app_delegate.cdq.setup
-    @app_delegate.cdq.reset!
   end
 
   after do
@@ -21,18 +20,19 @@ describe ActiveDocumentTracker do
     assume_careers_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    active_uri_is(nil)
+create_tracker
 
     wait_until(@midnight + 2)
-    active_uri_is("file://Users/John/Autoparts/main.rb")
+    active_uri_is("file://localhost/Users/John/Autoparts/main.rb")
     @tracker.update
 
     wait_until(@midnight + 4)
-    active_uri_is("file://Users/John/Careers/main.rb")
+    active_uri_is("file://localhost/Users/John/Careers/main.rb")
     @tracker.update
 
     wait_until(@midnight + 6)
-    active_uri_is(URIGrabber::MISSING_FILE_URL)
+    active_uri_is(nil)
     @tracker.update
 
     Entry.count.should == 4
@@ -54,14 +54,15 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    active_uri_is(nil)
+create_tracker
 
     wait_until(@midnight + 2)
-    active_uri_is("file://Users/John/Autoparts/main.rb")
+    active_uri_is("file://localhost/Users/John/Autoparts/main.rb")
     @tracker.update
 
     wait_until(@midnight + 4)
-    active_uri_is(URIGrabber::MISSING_FILE_URL)
+    active_uri_is(nil)
     @tracker.update
 
     Entry.count.should == 3
@@ -80,14 +81,15 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    active_uri_is(nil)
+    create_tracker
 
     wait_until(@midnight + 2)
-    active_uri_is(URIGrabber::MISSING_FILE_URL)
+    active_uri_is(nil)
     @tracker.update
 
     wait_until(@midnight + 4)
-    active_uri_is("file://Users/John/Autoparts/main.rb")
+    active_uri_is("file://localhost/Users/John/Autoparts/main.rb")
     @tracker.update
 
     Entry.count.should == 2
@@ -101,7 +103,8 @@ describe ActiveDocumentTracker do
 
   it "with no projects it only tracks none" do
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    active_uri_is(nil)
+    create_tracker
     @tracker.update
 
     Entry.count.should == 1
@@ -112,7 +115,8 @@ describe ActiveDocumentTracker do
     assume_autoparts_activity
 
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    active_uri_is(nil)
+    create_tracker
 
     user_is_idle
     wait_until(@midnight + idle_threshold + 2)
@@ -139,10 +143,11 @@ describe ActiveDocumentTracker do
 
     user_is_active
     wait_until(@midnight)
-    @tracker = ActiveDocumentTracker.new(@app_delegate.cdq)
+    active_uri_is(nil)
+    create_tracker
 
     wait_until(@midnight + 2)
-    active_uri_is("file://Users/John/Autoparts/main.rb")
+    active_uri_is("file://localhost/Users/John/Autoparts/main.rb")
     @tracker.update
 
     wait_until(@midnight + 4)
@@ -150,7 +155,7 @@ describe ActiveDocumentTracker do
     @tracker.update
 
     wait_until(@midnight + 6)
-    active_uri_is(URIGrabber::MISSING_FILE_URL)
+    active_uri_is(nil)
     @tracker.update
 
     Entry.count.should == 3
@@ -198,7 +203,9 @@ def time_is(time)
 end
 
 def active_uri_is(uri)
-  URIGrabber.stub!(:grab, return: uri)
+  AppleScriptRunner.stub!(:run) do |source|
+    OpenStruct.new(stringValue: uri)
+  end
 end
 
 def idle_threshold
@@ -214,9 +221,16 @@ def none
 end
 
 def assume_autoparts_activity
-  @autoparts = Activity.create(name: "Autoparts", urlString: "file://Users/John/Autoparts")
+  
+  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts")
 end
 
 def assume_careers_activity
-  @careers = Activity.create(name: "Careers", urlString: "file://Users/John/Careers")
+  @careers = Activity.create(name: "Careers", urlString: "file://localhost/Users/John/Careers")
+end
+
+def create_tracker
+  frontmostApplication = OpenStruct.new(bundleIdentifier: 'com.notlapsus', processIdentifier: '1234')
+  workspace = OpenStruct.new(frontmostApplication: frontmostApplication)
+  @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, workspace)
 end
