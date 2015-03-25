@@ -1,16 +1,16 @@
 class URIGrabber
   MISSING_FILE_URL = "missingfile://"
 
-  def initialize(workspace, current_application)
-    @current_application = current_application
+  def initialize(workspace)
+    @lapsus_bundle_identifier = NSBundle.mainBundle.bundleIdentifier
     @workspace = workspace
   end
 
   def grab
-    frontmost_application = @workspace.frontmostApplication
-    return MISSING_FILE_URL if frontmost_application.bundleIdentifier == lapsus_bundle_identifier
+    active_application = @workspace.frontmostApplication
+    return MISSING_FILE_URL if active_application.bundleIdentifier == @lapsus_bundle_identifier
 
-    source = source_from_application(frontmost_application)
+    source = source_from_application(active_application)
     active_uri = AppleScriptRunner.run(source)
     if active_uri && active_uri.stringValue
       standardised_uri = URI(active_uri.stringValue)
@@ -19,10 +19,6 @@ class URIGrabber
     else
       MISSING_FILE_URL
     end
-  end
-
-  def lapsus_bundle_identifier
-    @current_application.bundleIdentifier
   end
 
   def source_from_application(application)

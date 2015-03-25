@@ -4,8 +4,7 @@ class ActiveDocumentTracker
     @idle = Activity.find_or_create_idle
     @none = Activity.find_or_create_none
     @entry = Entry.start(@none)
-    current_application = NSRunningApplication.currentApplication
-    @grabber = URIGrabber.new(workspace, current_application)
+    @grabber = URIGrabber.new(workspace)
   end
 
   def update
