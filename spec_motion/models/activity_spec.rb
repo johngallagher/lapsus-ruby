@@ -40,25 +40,25 @@ describe Activity do
 
   it "returns the idle activity if the user is idle" do
     IdleDetector.stub!(:idle?, return: true)
-    Activity.current_from_active_uri('anything').should == Activity.idle
+    Activity.current_from_active_uri("anything").should == Activity.idle
   end
 
   it "returns no activity if there are no projects" do
     IdleDetector.stub!(:idle?, return: false)
-    Activity.current_from_active_uri('anything').should == Activity.none
+    Activity.current_from_active_uri("anything").should == Activity.none
   end
 
   it "returns a last active activity if the active uri has http schema" do
-    Activity.create(name: 'Lapsus', urlString: 'file://localhost/Users/j/lapsus')
+    Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
-    URIGrabber.stub!(:grab, return: 'http://www.google.co.uk')
+    URIGrabber.stub!(:grab, return: "http://www.google.co.uk")
 
-    current = Activity.current_from_active_uri('http://www.google.co.uk')
+    current = Activity.current_from_active_uri("http://www.google.co.uk")
     current.previous?.should == true
   end
 
   it "returns none if uri starts with missing file schema" do
-    Activity.create(name: 'Lapsus', urlString: 'file://localhost/Users/j/lapsus')
+    Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
 
     current = Activity.current_from_active_uri(URIGrabber::MISSING_FILE_URL)
@@ -66,18 +66,18 @@ describe Activity do
   end
 
   it "matches projects that contain the current uri" do
-    lapsus = Activity.create(name: 'Lapsus', urlString: 'file://localhost/Users/j/lapsus')
+    lapsus = Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
 
-    current = Activity.current_from_active_uri('file://localhost/Users/j/lapsus/main.rb')
+    current = Activity.current_from_active_uri("file://localhost/Users/j/lapsus/main.rb")
     current.should == lapsus
   end
 
   it "gives a current activity of none for a non project file" do
-    Activity.create(name: 'Lapsus', urlString: 'file://localhost/Users/j/lapsus')
+    Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
 
-    current = Activity.current_from_active_uri('file://localhost/Users/j/Autoparts/main.rb')
+    current = Activity.current_from_active_uri("file://localhost/Users/j/Autoparts/main.rb")
     current.should == Activity.none
   end
 end

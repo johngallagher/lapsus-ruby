@@ -21,7 +21,7 @@ describe ActiveDocumentTracker do
 
     wait_until(@midnight)
     active_uri_is(nil)
-create_tracker
+    create_tracker
 
     wait_until(@midnight + 2)
     active_uri_is("file://localhost/Users/John/Autoparts/main.rb")
@@ -55,7 +55,7 @@ create_tracker
 
     wait_until(@midnight)
     active_uri_is(nil)
-create_tracker
+    create_tracker
 
     wait_until(@midnight + 2)
     active_uri_is("file://localhost/Users/John/Autoparts/main.rb")
@@ -203,7 +203,7 @@ def time_is(time)
 end
 
 def active_uri_is(uri)
-  AppleScriptRunner.stub!(:run) do |source|
+  AppleScriptRunner.stub!(:run) do |_source|
     OpenStruct.new(stringValue: uri)
   end
 end
@@ -221,7 +221,6 @@ def none
 end
 
 def assume_autoparts_activity
-  
   @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts")
 end
 
@@ -230,7 +229,7 @@ def assume_careers_activity
 end
 
 def create_tracker
-  frontmostApplication = OpenStruct.new(bundleIdentifier: 'com.notlapsus', processIdentifier: '1234')
-  workspace = OpenStruct.new(frontmostApplication: frontmostApplication)
+  frontmost_application = OpenStruct.new(bundleIdentifier: "com.notlapsus", processIdentifier: "1234")
+  workspace = OpenStruct.new(frontmostApplication: frontmost_application)
   @tracker = ActiveDocumentTracker.new(@app_delegate.cdq, workspace)
 end

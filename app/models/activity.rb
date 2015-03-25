@@ -20,13 +20,13 @@ class Activity < CDQManagedObject
   def self.current_from_active_uri(uri)
     return idle if IdleDetector.idle?
     return none if projects.array.empty? || uri.start_with?(URIGrabber::MISSING_FILE_URL)
-    return previous if !uri.start_with?("file://")
+    return previous unless uri.start_with?("file://")
 
     project_for(uri)
   end
 
   def self.previous
-    Activity.new(name: 'Previous', type: 'previous')
+    Activity.new(name: "Previous", type: "previous")
   end
 
   def self.project_for(uri)
@@ -50,6 +50,6 @@ class Activity < CDQManagedObject
   end
 
   def previous?
-    type == 'previous'
+    type == "previous"
   end
 end
