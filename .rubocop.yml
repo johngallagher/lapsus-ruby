@@ -34,7 +34,7 @@ Style/AndOr:
   EnforcedStyle: conditionals
 
 Metrics/LineLength:
-  Max: 140
+  Max: 300
   AllowURI: true
   URISchemes:
     - http
