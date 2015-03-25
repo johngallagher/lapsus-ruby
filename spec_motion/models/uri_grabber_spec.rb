@@ -22,6 +22,10 @@ describe URIGrabber do
     assuming_active_uri(lapsus_main)
     URIGrabber.new(@workspace).grab.should ==  'file://localhost/Users/Documents/Lapsus/main.rb'
   end
+
+  it "uses correct Applescript for Google Chrome" do
+    URIGrabber.new(@workspace).source_from_application(google_chrome).should == %Q[ tell application "Google Chrome" to return URL of active tab of front window ]
+  end
 end
 
 def assuming_active_uri(uri)
@@ -30,6 +34,10 @@ end
 
 def assuming_error_grabbing_active_uri
   AppleScriptRunner.stub!(:run) { |source| nil }
+end
+
+def google_chrome
+  OpenStruct.new(bundleIdentifier: 'com.google.Chrome')
 end
 
 def assuming_active_application(opts)
