@@ -23,8 +23,16 @@ describe URIGrabber do
     URIGrabber.new(@workspace).grab.should ==  'file://localhost/Users/Documents/Lapsus/main.rb'
   end
 
+  it "uses correct Applescript for Safari" do
+    URIGrabber.new(@workspace).source_from_application(safari).should == %Q[ tell application "Safari" to return URL of front document ]
+  end
+
   it "uses correct Applescript for Google Chrome" do
     URIGrabber.new(@workspace).source_from_application(google_chrome).should == %Q[ tell application "Google Chrome" to return URL of active tab of front window ]
+  end
+
+  it "uses correct Applescript for other applications" do
+    URIGrabber.new(@workspace).source_from_application(sublime_text).should == %Q[ tell application "System Events" to return value of attribute "AXDocument" of (front window of (first process whose unix id is #{sublime_text.processIdentifier})) ]
   end
 end
 
@@ -34,6 +42,14 @@ end
 
 def assuming_error_grabbing_active_uri
   AppleScriptRunner.stub!(:run) { |source| nil }
+end
+
+def sublime_text
+  OpenStruct.new(bundleIdentifier: 'com.sublimetext2')
+end
+
+def safari
+  OpenStruct.new(bundleIdentifier: 'com.apple.Safari')
 end
 
 def google_chrome

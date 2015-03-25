@@ -12,13 +12,11 @@ class URIGrabber
 
     source = source_from_application(active_application)
     active_uri = AppleScriptRunner.run(source)
-    if active_uri && active_uri.stringValue
-      standardised_uri = URI(active_uri.stringValue)
-      standardised_uri.host = 'localhost' if standardised_uri.host.nil? && standardised_uri.scheme == 'file'
-      standardised_uri.to_s
-    else
-      MISSING_FILE_URL
-    end
+    return MISSING_FILE_URL if !active_uri || !active_uri.stringValue
+
+    standardised_uri = URI(active_uri.stringValue)
+    standardised_uri.host = 'localhost' if !standardised_uri.host && standardised_uri.scheme == 'file'
+    standardised_uri.to_s
   end
 
   def source_from_application(application)
