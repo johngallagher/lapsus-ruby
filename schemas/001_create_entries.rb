@@ -10,7 +10,7 @@ schema "001" do
   entity "Activity" do
     string :name
     string :urlString
-    string :type, default: "project"
+    string :type, default: "Project"
 
     has_many :entries
     belongs_to :container

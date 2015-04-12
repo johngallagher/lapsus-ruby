@@ -23,7 +23,7 @@ describe Activity do
     Activity.find_or_create_none
 
     Activity.count.should == 1
-    Activity.first.attributes.should == { "urlString" => nil, "type" => "none", "name" => "None" }
+    Activity.first.attributes.should == { "urlString" => nil, "type" => Activity::NONE, "name" =>  Activity::NONE}
   end
 
   it "creates just one idle" do
@@ -31,11 +31,11 @@ describe Activity do
     Activity.find_or_create_idle
 
     Activity.count.should == 1
-    Activity.first.attributes.should == { "urlString" => nil, "type" => "idle", "name" => "Idle" }
+    Activity.first.attributes.should == { "urlString" => nil, "type" => Activity::IDLE , "name" => Activity::IDLE }
   end
 
   it "defaults to a project" do
-    Activity.create.type.should == "project"
+    Activity.create.type.should == Activity::PROJECT
   end
 
   it "returns the idle activity if the user is idle" do

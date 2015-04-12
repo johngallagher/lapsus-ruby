@@ -1,20 +1,19 @@
 class Activity < CDQManagedObject
-  IDLE_NAME = "Idle"
-  IDLE_TYPE = "idle"
-  NONE_NAME = "None"
-  NONE_TYPE = "none"
-  PROJECT_TYPE = "project"
+  IDLE = "Idle"
+  NONE = "None"
+  PROJECT = "Project"
+  PREVIOUS = "Previous"
 
   def self.find_or_create_none
     return none if none
 
-    create(name: NONE_NAME, type: NONE_TYPE)
+    create(name: NONE, type: NONE)
   end
 
   def self.find_or_create_idle
     return idle if idle
 
-    create(name: IDLE_NAME, type: IDLE_TYPE)
+    create(name: IDLE, type: IDLE)
   end
 
   def self.current_from_active_uri(uri)
@@ -26,7 +25,7 @@ class Activity < CDQManagedObject
   end
 
   def self.previous
-    Activity.new(name: "Previous", type: "previous")
+    Activity.new(name: PREVIOUS, type: PREVIOUS)
   end
 
   def self.project_for(uri)
@@ -34,22 +33,22 @@ class Activity < CDQManagedObject
   end
 
   def self.projects
-    where(:type).eq(PROJECT_TYPE).sort_by(:name)
+    where(:type).eq(PROJECT).sort_by(:name)
   end
 
   def self.idle
-    where(:type).eq(IDLE_TYPE).first
+    where(:type).eq(IDLE).first
   end
 
   def self.none
-    where(:type).eq(NONE_TYPE).first
+    where(:type).eq(NONE).first
   end
 
   def idle?
-    type == IDLE_TYPE
+    type == IDLE
   end
 
   def previous?
-    type == "previous"
+    type == PREVIOUS
   end
 end
