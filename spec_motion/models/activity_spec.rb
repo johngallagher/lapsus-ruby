@@ -54,7 +54,7 @@ describe Activity do
     URIGrabber.stub!(:grab, return: "http://www.google.co.uk")
 
     current = Activity.from_uri("http://www.google.co.uk")
-    current.previous?.should == true
+    current.last_active?.should == true
   end
 
   it "returns none if uri starts with missing file schema" do

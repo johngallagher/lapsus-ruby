@@ -2,7 +2,7 @@ class Activity < CDQManagedObject
   IDLE = "Idle"
   NONE = "None"
   PROJECT = "Project"
-  PREVIOUS = "Previous"
+  LAST_ACTIVE = "Last Active"
 
   def self.find_or_create_none
     return none if none
@@ -19,13 +19,13 @@ class Activity < CDQManagedObject
   def self.from_uri(uri)
     return idle if IdleDetector.idle?
     return none if projects.array.empty? || uri.start_with?(URIGrabber::MISSING_FILE_URL)
-    return previous unless uri.start_with?("file://")
+    return last_active if !uri.start_with?("file://")
 
     project_for(uri)
   end
 
-  def self.previous
-    Activity.new(name: PREVIOUS, type: PREVIOUS)
+  def self.last_active
+    Activity.new(name: LAST_ACTIVE, type: LAST_ACTIVE)
   end
 
   def self.project_for(uri)
@@ -48,7 +48,7 @@ class Activity < CDQManagedObject
     type == IDLE
   end
 
-  def previous?
-    type == PREVIOUS
+  def last_active?
+    type == LAST_ACTIVE
   end
 end

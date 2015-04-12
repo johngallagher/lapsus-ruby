@@ -11,7 +11,7 @@ class ActiveDocumentTracker
   def update
     current_activity = Activity.from_uri(@grabber.grab)
 
-    return if current_activity == @entry.activity || current_activity.previous?
+    return if current_activity == @entry.activity || current_activity.last_active?
 
     @entry.finish
     @entry.remove_idle_time_from_finish if current_activity.idle?
