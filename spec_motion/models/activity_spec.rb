@@ -40,12 +40,12 @@ describe Activity do
 
   it "returns the idle activity if the user is idle" do
     IdleDetector.stub!(:idle?, return: true)
-    Activity.current_from_active_uri("anything").should == Activity.idle
+    Activity.from_uri("anything").should == Activity.idle
   end
 
   it "returns no activity if there are no projects" do
     IdleDetector.stub!(:idle?, return: false)
-    Activity.current_from_active_uri("anything").should == Activity.none
+    Activity.from_uri("anything").should == Activity.none
   end
 
   it "returns a last active activity if the active uri has http schema" do
@@ -53,7 +53,7 @@ describe Activity do
     IdleDetector.stub!(:idle?, return: false)
     URIGrabber.stub!(:grab, return: "http://www.google.co.uk")
 
-    current = Activity.current_from_active_uri("http://www.google.co.uk")
+    current = Activity.from_uri("http://www.google.co.uk")
     current.previous?.should == true
   end
 
@@ -61,7 +61,7 @@ describe Activity do
     Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
 
-    current = Activity.current_from_active_uri(URIGrabber::MISSING_FILE_URL)
+    current = Activity.from_uri(URIGrabber::MISSING_FILE_URL)
     current.should == Activity.none
   end
 
@@ -69,7 +69,7 @@ describe Activity do
     lapsus = Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
 
-    current = Activity.current_from_active_uri("file://localhost/Users/j/lapsus/main.rb")
+    current = Activity.from_uri("file://localhost/Users/j/lapsus/main.rb")
     current.should == lapsus
   end
 
@@ -77,7 +77,7 @@ describe Activity do
     Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
     IdleDetector.stub!(:idle?, return: false)
 
-    current = Activity.current_from_active_uri("file://localhost/Users/j/Autoparts/main.rb")
+    current = Activity.from_uri("file://localhost/Users/j/Autoparts/main.rb")
     current.should == Activity.none
   end
 end

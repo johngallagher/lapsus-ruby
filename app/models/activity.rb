@@ -16,7 +16,7 @@ class Activity < CDQManagedObject
     create(name: IDLE, type: IDLE)
   end
 
-  def self.current_from_active_uri(uri)
+  def self.from_uri(uri)
     return idle if IdleDetector.idle?
     return none if projects.array.empty? || uri.start_with?(URIGrabber::MISSING_FILE_URL)
     return previous unless uri.start_with?("file://")
