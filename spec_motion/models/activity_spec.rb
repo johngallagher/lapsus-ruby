@@ -6,6 +6,7 @@ describe Activity do
 
     cdq.setup
     cdq.reset!
+    user_is_active
   end
 
   after do
@@ -39,45 +40,63 @@ describe Activity do
   end
 
   it "returns the idle activity if the user is idle" do
-    IdleDetector.stub!(:idle?, return: true)
+    user_is_idle
     Activity.from_uri("anything").should == Activity.idle
   end
 
   it "returns no activity if there are no projects" do
-    IdleDetector.stub!(:idle?, return: false)
     Activity.from_uri("anything").should == Activity.none
   end
 
   it "returns a last active activity if the active uri has http schema" do
-    Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
-    IdleDetector.stub!(:idle?, return: false)
-    URIGrabber.stub!(:grab, return: "http://www.google.co.uk")
+    assume_a_project_exists
 
-    current = Activity.from_uri("http://www.google.co.uk")
-    current.last_active?.should == true
+    Activity.from_uri("http://www.google.co.uk").last_active?.should == true
   end
 
-  it "returns none if uri starts with missing file schema" do
-    Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
-    IdleDetector.stub!(:idle?, return: false)
+  it "no activity for missing files" do
+    assume_a_project_exists
 
-    current = Activity.from_uri(URIGrabber::MISSING_FILE_URL)
-    current.should == Activity.none
+    Activity.from_uri(URIGrabber::MISSING_FILE_URL).should == Activity.none
   end
 
   it "matches projects that contain the current uri" do
-    lapsus = Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
-    IdleDetector.stub!(:idle?, return: false)
+    assume_autoparts_activity
 
-    current = Activity.from_uri("file://localhost/Users/j/lapsus/main.rb")
-    current.should == lapsus
+    Activity.from_uri(autoparts_document_uri).should == @autoparts
   end
 
-  it "gives a current activity of none for a non project file" do
-    Activity.create(name: "Lapsus", urlString: "file://localhost/Users/j/lapsus")
-    IdleDetector.stub!(:idle?, return: false)
+  it "assigns no activity to a non project file" do
+    assume_autoparts_activity
 
-    current = Activity.from_uri("file://localhost/Users/j/Autoparts/main.rb")
-    current.should == Activity.none
+    Activity.from_uri(lapsus_file_uri).should == Activity.none
   end
+end
+
+def autoparts_document_uri
+  "file://localhost/Users/John/Autoparts/main.rb"
+end
+
+def lapsus_file_uri
+  "file://localhost/Users/John/Lapsus/main.rb"
+end
+
+def user_is_idle
+  IdleDetector.stub!(:idle?, return: true)
+end
+
+def user_is_active
+  IdleDetector.stub!(:idle?, return: false)
+end
+
+def assume_a_project_exists
+  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts")
+end
+
+def assume_autoparts_activity
+  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts")
+end
+
+def assume_lapsus_activity
+  @lapsus = Activity.create(name: "Lapsus", urlString: "file://localhost/Users/John/Lapsus")
 end
