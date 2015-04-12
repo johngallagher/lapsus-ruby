@@ -11,4 +11,8 @@ class AppDelegate
     end
     true
   end
+
+  def applicationWillTerminate(_notification)
+    @tracker.stop
+  end
 end

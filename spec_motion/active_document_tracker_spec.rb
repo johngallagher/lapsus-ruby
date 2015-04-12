@@ -141,7 +141,6 @@ describe ActiveDocumentTracker do
   it "when the user looks at a web page it assigns the last active project" do
     assume_autoparts_activity
 
-    user_is_active
     wait_until(@midnight)
     active_uri_is(nil)
     create_tracker
@@ -167,6 +166,20 @@ describe ActiveDocumentTracker do
     second_entry.startedAt.should == @midnight + 2
     second_entry.finishedAt.should == @midnight + 6
     second_entry.duration.should == 4
+  end
+
+  it "stops the last entry when exiting" do
+    wait_until(@midnight)
+    active_uri_is(nil)
+    create_tracker
+
+    wait_until(@midnight + 2)
+    active_uri_is(nil)
+    @tracker.stop
+
+    Entry.count.should == 1
+
+    first_entry.finishedAt.should == @midnight + 2
   end
 end
 
