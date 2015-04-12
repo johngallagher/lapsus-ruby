@@ -52,5 +52,9 @@ Lint/Void:
 
 Style/TrivialAccessors:
   Enabled: false
+
 Style/MethodName:
+  Enabled: false
+
+Style/NegatedIf:
   Enabled: false
