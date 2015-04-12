@@ -1,19 +1,22 @@
 class ActiveDocumentTracker
   def initialize(cdq, workspace = NSWorkspace.sharedWorkspace)
     @cdq = cdq
-    @idle = Activity.find_or_create_idle
-    @none = Activity.find_or_create_none
-    @entry = Entry.start(@none)
     @grabber = URIGrabber.new(workspace)
+
+    Activity.find_or_create_idle
+    none = Activity.find_or_create_none
+    @entry = Entry.start(none)
   end
 
   def update
-    activity = Activity.current_from_active_uri(@grabber.grab)
+    current_activity = Activity.current_from_active_uri(@grabber.grab)
 
-    return if @entry.activity == activity || activity.previous?
+    return if current_activity == @entry.activity || current_activity.previous?
 
-    @entry.finish(activity)
-    @entry = Entry.start(activity)
+    @entry.finish
+    @entry.remove_idle_time_from_finish if current_activity.idle?
+
+    @entry = Entry.start(current_activity)
     @cdq.save
   end
 end

@@ -1,22 +1,28 @@
 class Entry < CDQManagedObject
   def self.start(activity)
     entry = Entry.create
-    entry.startedAt = Entry.now_adjusted_for_idle_time(activity)
+    entry.startedAt = Time.now
     entry.activity = activity
+    entry.add_idle_time_to_start if activity.idle?
     entry
   end
 
-  def finish(next_activity)
-    self.finishedAt = Entry.now_adjusted_for_idle_time(next_activity)
-    self.duration = finishedAt - startedAt
+  def finish
+    self.finishedAt = Time.now
+    update_duration
   end
 
-  def self.now_adjusted_for_idle_time(activity)
-    if activity.idle?
-      Time.now - IdleDetector::IDLE_THRESHOLD
-    else
-      Time.now
-    end
+  def add_idle_time_to_start
+    self.startedAt -= IdleDetector::IDLE_THRESHOLD
+  end
+
+  def remove_idle_time_from_finish
+    self.finishedAt -= IdleDetector::IDLE_THRESHOLD
+    update_duration
+  end
+
+  def update_duration
+    self.duration = finishedAt - startedAt
   end
 
   def to_s
