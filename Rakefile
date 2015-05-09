@@ -4,6 +4,8 @@ require 'motion/project/template/osx'
 require 'bubble-wrap/reactor'
 require 'motion-stump'
 require 'ib'
+require 'motion-support'
+
 
 begin
   require 'bundler'

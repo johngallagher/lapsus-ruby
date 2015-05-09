@@ -16,13 +16,24 @@
 
 @interface ProjectSummaryController: NSViewController
 
-@property IBOutlet NSOutlineView * source_list;
+@property IBOutlet NSSegmentedCell * range_selector;
+@property IBOutlet NSDatePicker * date_selector;
+@property IBOutlet NSTableView * table_view;
+
+-(IBAction) awakeFromNib;
+-(IBAction) select_date:(id) sender;
+-(IBAction) numberOfRowsInTableView:(id) tableView;
 
 @end
 
 @interface SourceListController: NSViewController
+
+@property IBOutlet NSArrayController * entries_controller;
+
 -(IBAction) add:(id) sender;
 -(IBAction) remove:(id) sender;
+-(IBAction) awakeFromNib;
+-(IBAction) outlineViewSelectionDidChange:(id) notification;
 
 @end
 

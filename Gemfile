@@ -11,6 +11,7 @@ gem 'motion-bundler'
 gem 'motion-stump'
 gem 'reek'
 gem 'ib', '0.7.2'
+gem 'motion-support'
 
 group :motion do
 end
