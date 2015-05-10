@@ -7,112 +7,83 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20ACAB6C72C11612A2C0F9D8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E608FDFF4E7FA319254CBC4E /* Cocoa.framework */; };
-		5AAFD8DF586A2D1082CCEF7F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60650E39020C417B72BA6725 /* QuartzCore.framework */; };
-		B4AFD6811D1111E64F98F58C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98A0235FB0AC23D6D1CE6FE8 /* CoreData.framework */; };
-		C206AF23D4F12576650B9EEC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B17E3D8FA513B886C303684 /* CoreGraphics.framework */; };
-		CD2ABA344A05315E97E1A7B9 /* Stubs.m in Sources */ = {isa = PBXBuildFile; fileRef = C0288FABB0B5CE2D6B0E1AFE /* Stubs.m */; };
+		12DF963055045BA9357AD448 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44331CCE78951E24E2AD0582 /* CoreData.framework */; };
+		2152019ADE5C61A45328B212 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B667E8CF668895E44A6D76 /* CoreGraphics.framework */; };
+		82659F11E2FFDF5B1CE9CA27 /* Stubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F37BDC63AA7FDE8AF3EFA /* Stubs.m */; };
+		B8DBBC21B010F42C2DC2060F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0E97B69B48FC9B71DE291D /* Cocoa.framework */; };
+		BFDD8B9B6303E62EED432714 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B94BF08F3317FD60326EEEB /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		100BBC8960DA5C45C23A9FC7 /* Stubs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Stubs.h; sourceTree = "<group>"; };
-		42E0F9CCFCB7C4772EC222AA /* clock.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
-		60650E39020C417B72BA6725 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		69694D8AF467F443E8C291BA /* MainWindow.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		6D80FAD8426AE020760A9ABC /* libib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libib.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B17E3D8FA513B886C303684 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		98A0235FB0AC23D6D1CE6FE8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
-		C0288FABB0B5CE2D6B0E1AFE /* Stubs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Stubs.m; sourceTree = "<group>"; };
-		D5EF4DEFA33CE4BDF5801DA1 /* Preferences.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
-		E608FDFF4E7FA319254CBC4E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		292A64BFC884C7D0BE3D3234 /* clock.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		2F0E97B69B48FC9B71DE291D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		44331CCE78951E24E2AD0582 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		4E5F37BDC63AA7FDE8AF3EFA /* Stubs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Stubs.m; sourceTree = "<group>"; };
+		5EC2A253967DA7162739AEAD /* libib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B94BF08F3317FD60326EEEB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		A202AE36CA8D0E2D3459EFC2 /* MainWindow.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		C49E57580AE2E32E245AE1DB /* Preferences.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		C7B667E8CF668895E44A6D76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		D18D4110CDB5043CE90E65F5 /* Stubs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Stubs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CE97B78943CB46486076B18D /* Frameworks */ = {
+		521B5D4C87768B67D522C326 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20ACAB6C72C11612A2C0F9D8 /* Cocoa.framework in Frameworks */,
-				5AAFD8DF586A2D1082CCEF7F /* QuartzCore.framework in Frameworks */,
-				C206AF23D4F12576650B9EEC /* CoreGraphics.framework in Frameworks */,
-				B4AFD6811D1111E64F98F58C /* CoreData.framework in Frameworks */,
+				B8DBBC21B010F42C2DC2060F /* Cocoa.framework in Frameworks */,
+				BFDD8B9B6303E62EED432714 /* QuartzCore.framework in Frameworks */,
+				2152019ADE5C61A45328B212 /* CoreGraphics.framework in Frameworks */,
+				12DF963055045BA9357AD448 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		150B8BD579C9721910738ED7 = {
+		26B75AC73AB06DD20C159B34 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				444CF40F9779B44E22C140BB /* Products */,
-				48817956975B8FC412008E82 /* Frameworks */,
-				36892A227C8B5C806AD32F32 /* Supporting Files */,
-				BEA97730CD0EFA2AB4B9915B /* Pods */,
-				265940B11A89488FEB55BA64 /* Resources */,
-			);
-			sourceTree = "<group>";
-		};
-		265940B11A89488FEB55BA64 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3593153EF3AE83D05C4D3B49 /* resources */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		3593153EF3AE83D05C4D3B49 /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				55054EF8C78E28D90E76A2C0 /* lapsus-ruby.xcdatamodeld */,
-				C6347911413A96B75E87881F /* lapsus.xcdatamodeld */,
-				4EECB595FBD205DC692F021A /* lapsus_menu_bar.xcdatamodeld */,
-				42E0F9CCFCB7C4772EC222AA /* clock.png */,
-				69694D8AF467F443E8C291BA /* MainWindow.xib */,
-				D5EF4DEFA33CE4BDF5801DA1 /* Preferences.xib */,
+				EEE3DDF4DE96F2B3D127F9DD /* lapsus-ruby.xcdatamodeld */,
+				0BB0A2093D544152CA272B47 /* lapsus.xcdatamodeld */,
+				E98D595075A0A3019A053EC7 /* lapsus_menu_bar.xcdatamodeld */,
+				292A64BFC884C7D0BE3D3234 /* clock.png */,
+				A202AE36CA8D0E2D3459EFC2 /* MainWindow.xib */,
+				C49E57580AE2E32E245AE1DB /* Preferences.xib */,
 			);
 			name = resources;
 			path = ./resources;
 			sourceTree = "<group>";
 		};
-		36892A227C8B5C806AD32F32 /* Supporting Files */ = {
+		3E14EC1F92F85886BF1EA1E4 = {
 			isa = PBXGroup;
 			children = (
-				100BBC8960DA5C45C23A9FC7 /* Stubs.h */,
-				C0288FABB0B5CE2D6B0E1AFE /* Stubs.m */,
+				661B616255BD73FB2CDF9753 /* Products */,
+				43FA773F782E10F8F87261A1 /* Frameworks */,
+				A2520D0A467DF1841675F5CE /* Supporting Files */,
+				7904A53B38471D2C5D601AC7 /* Pods */,
+				C09C42DB18E40E30555CBED0 /* Resources */,
 			);
-			name = "Supporting Files";
-			path = /Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/ib.xcodeproj;
 			sourceTree = "<group>";
 		};
-		444CF40F9779B44E22C140BB /* Products */ = {
+		43FA773F782E10F8F87261A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6D80FAD8426AE020760A9ABC /* libib.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		48817956975B8FC412008E82 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				72C136D118213A0D8FAE0BFC /* OS X */,
+				AA595B0D2609D22361C0A7EB /* OS X */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		72C136D118213A0D8FAE0BFC /* OS X */ = {
+		661B616255BD73FB2CDF9753 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E608FDFF4E7FA319254CBC4E /* Cocoa.framework */,
-				60650E39020C417B72BA6725 /* QuartzCore.framework */,
-				7B17E3D8FA513B886C303684 /* CoreGraphics.framework */,
-				98A0235FB0AC23D6D1CE6FE8 /* CoreData.framework */,
+				5EC2A253967DA7162739AEAD /* libib.a */,
 			);
-			name = "OS X";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		BEA97730CD0EFA2AB4B9915B /* Pods */ = {
+		7904A53B38471D2C5D601AC7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -120,15 +91,44 @@
 			path = /Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/vendor/Pods/Headers;
 			sourceTree = "<group>";
 		};
+		A2520D0A467DF1841675F5CE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D18D4110CDB5043CE90E65F5 /* Stubs.h */,
+				4E5F37BDC63AA7FDE8AF3EFA /* Stubs.m */,
+			);
+			name = "Supporting Files";
+			path = /Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/ib.xcodeproj;
+			sourceTree = "<group>";
+		};
+		AA595B0D2609D22361C0A7EB /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				2F0E97B69B48FC9B71DE291D /* Cocoa.framework */,
+				7B94BF08F3317FD60326EEEB /* QuartzCore.framework */,
+				C7B667E8CF668895E44A6D76 /* CoreGraphics.framework */,
+				44331CCE78951E24E2AD0582 /* CoreData.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		C09C42DB18E40E30555CBED0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26B75AC73AB06DD20C159B34 /* resources */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		17FCCBBD666CD204135E0157 /* ib */ = {
+		FB806F91512ECCF24680FC5B /* ib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5DE08E72D5B98D494B72A7E1 /* Build configuration list for PBXNativeTarget "ib" */;
+			buildConfigurationList = 977AE568928B03CD686188C3 /* Build configuration list for PBXNativeTarget "ib" */;
 			buildPhases = (
-				1A4E167B56E71A19FB98BD55 /* Sources */,
-				CE97B78943CB46486076B18D /* Frameworks */,
+				92ABEC95BAEFD9C168014D6A /* Sources */,
+				521B5D4C87768B67D522C326 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,47 +136,77 @@
 			);
 			name = ib;
 			productName = ib;
-			productReference = 6D80FAD8426AE020760A9ABC /* libib.a */;
+			productReference = 5EC2A253967DA7162739AEAD /* libib.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1EABA5F98EF21E446127008D /* Project object */ = {
+		FC127F06A8D691C5E7B8C9B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = E5D77CCF82FB9276458C5598 /* Build configuration list for PBXProject "ib" */;
+			buildConfigurationList = 9E776427E15D5F62C349DF4D /* Build configuration list for PBXProject "ib" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 150B8BD579C9721910738ED7;
-			productRefGroup = 444CF40F9779B44E22C140BB /* Products */;
+			mainGroup = 3E14EC1F92F85886BF1EA1E4;
+			productRefGroup = 661B616255BD73FB2CDF9753 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				17FCCBBD666CD204135E0157 /* ib */,
+				FB806F91512ECCF24680FC5B /* ib */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1A4E167B56E71A19FB98BD55 /* Sources */ = {
+		92ABEC95BAEFD9C168014D6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD2ABA344A05315E97E1A7B9 /* Stubs.m in Sources */,
+				82659F11E2FFDF5B1CE9CA27 /* Stubs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		188C3E71EEC2FDD7667A7D1E /* Debug */ = {
+		51FCCF6FF739B0F35D41267F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B5292F395DAEF398052C16E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -212,18 +242,7 @@
 			};
 			name = Debug;
 		};
-		B65CFEAA309234AB109AB357 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		C93AA0F9D636FD78812ED4AF /* Release */ = {
+		A6893232E69B0D029927BBCE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -235,53 +254,34 @@
 			};
 			name = Release;
 		};
-		E2E82C06AE88527747AC34DF /* Release */ = {
+		AE6047C61082C1105983FDEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				VALIDATE_PRODUCT = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5DE08E72D5B98D494B72A7E1 /* Build configuration list for PBXNativeTarget "ib" */ = {
+		977AE568928B03CD686188C3 /* Build configuration list for PBXNativeTarget "ib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C93AA0F9D636FD78812ED4AF /* Release */,
-				B65CFEAA309234AB109AB357 /* Debug */,
+				A6893232E69B0D029927BBCE /* Release */,
+				AE6047C61082C1105983FDEA /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E5D77CCF82FB9276458C5598 /* Build configuration list for PBXProject "ib" */ = {
+		9E776427E15D5F62C349DF4D /* Build configuration list for PBXProject "ib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				188C3E71EEC2FDD7667A7D1E /* Debug */,
-				E2E82C06AE88527747AC34DF /* Release */,
+				9B5292F395DAEF398052C16E /* Debug */,
+				51FCCF6FF739B0F35D41267F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -289,23 +289,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4EECB595FBD205DC692F021A /* lapsus_menu_bar.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-			);
-			path = lapsus_menu_bar.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		55054EF8C78E28D90E76A2C0 /* lapsus-ruby.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-			);
-			path = "lapsus-ruby.xcdatamodeld";
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		C6347911413A96B75E87881F /* lapsus.xcdatamodeld */ = {
+		0BB0A2093D544152CA272B47 /* lapsus.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 			);
@@ -313,7 +297,23 @@
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
+		E98D595075A0A3019A053EC7 /* lapsus_menu_bar.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+			);
+			path = lapsus_menu_bar.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		EEE3DDF4DE96F2B3D127F9DD /* lapsus-ruby.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+			);
+			path = "lapsus-ruby.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 /* End XCVersionGroup section */
 	};
-	rootObject = 1EABA5F98EF21E446127008D /* Project object */;
+	rootObject = FC127F06A8D691C5E7B8C9B8 /* Project object */;
 }

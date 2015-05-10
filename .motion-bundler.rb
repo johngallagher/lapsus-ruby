@@ -125,6 +125,7 @@ module MotionBundler
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/mocks/uri/generic.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/app_delegate.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/controllers/main_window_controller.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/controllers/minutes_duration_formatter.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/controllers/project_summary_controller.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/controllers/source_list_controller.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/hello_controller.rb",
@@ -132,6 +133,7 @@ module MotionBundler
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/idle_detector.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/lib/uri_grabber.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/activity.rb",
+    "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/container.rb",
     "/Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/app/models/entry.rb"
   ]
   FILES_DEPENDENCIES = {

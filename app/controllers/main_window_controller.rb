@@ -1,11 +1,6 @@
 class MainWindowController < NSWindowController
   extend IB
 
-  def add(sender)
-
-  end
-
-  def remove(sender)
-
-  end
+  outlet :source_list_controller
+  outlet :project_summary_controller
 end

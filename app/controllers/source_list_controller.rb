@@ -1,19 +1,43 @@
 class SourceListController < NSViewController
+  include CDQ
   extend IB
-  outlet :entries_controller, NSArrayController
+
+  outlet :outline_view, NSOutlineView
+  outlet :table_view, NSTableView
 
   def add(sender)
-    puts "Hit add"
+    openDlg = NSOpenPanel.openPanel
+    openDlg.canChooseFiles = false
+    openDlg.canChooseDirectories = true
+    if openDlg.runModal == NSOKButton
+      selected_url = openDlg.URLs.first
+      Container.create_from_url(selected_url)
+      cdq.save
+      reload
+    end
   end
 
   def remove(sender)
-    puts "Hit remove"
+    selected_object = outline_view.itemAtRow(outline_view.selectedRow)
+    return if selected_object.nil?
+
+    if selected_object.type == 'Container'
+      selected_object.activities.each { |a| a.destroy }
+      selected_object.destroy
+      cdq.save
+      reload
+    end
+  end
+
+  def reload
+    outline_view.reloadData
+    table_view.reloadData
   end
 
 
   def awakeFromNib
     @all_projects ||= OpenStruct.new(name: 'PROJECTS', type: 'Group')
-    @projects ||= Activity.projects
+    @containers ||= Container.all
     super
   end
 
@@ -26,18 +50,26 @@ class SourceListController < NSViewController
   end
 
   def outlineView(outline_view, numberOfChildrenOfItem: item)
-    Activity.projects.count
+    if item.nil?
+      1
+    elsif item.type == 'Group'
+      @containers.to_a.count
+    else
+      item.activities.count
+    end
   end
 
   def outlineView(outline_view, isItemExpandable: item)
-    item.type == 'Group'
+    item.type == 'Group' || item.type == 'Container'
   end
   
   def outlineView(outline_view, child: index, ofItem: item)
-    if item
-      @projects[index]
-    else
+    if item.nil?
       @all_projects
+    elsif item.type == 'Group'
+      @containers[index]
+    else
+      item.activities[index]
     end
   end
 
@@ -57,12 +89,6 @@ class SourceListController < NSViewController
   end
 
   def outlineViewSelectionDidChange(notification)
-    outlineView = notification.object
-    if outlineView.selectedRow == -1
-      entries_controller.filterPredicate = nil
-    else
-      selected_project = outlineView.itemAtRow(outlineView.selectedRow)
-      entries_controller.filterPredicate = NSPredicate.predicateWithFormat('activity == %@', selected_project)
-    end
+    # Show different projects in right hand side
   end
 end

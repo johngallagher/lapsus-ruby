@@ -6,6 +6,9 @@
 @implementation MainWindowController
 @end
 
+@implementation MinutesDurationFormatter
+@end
+
 @implementation ProjectSummaryController
 @end
 

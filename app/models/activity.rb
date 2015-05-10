@@ -18,8 +18,8 @@ class Activity < CDQManagedObject
 
   def self.from_uri(uri)
     return idle if IdleDetector.idle?
-    return none if projects.array.empty? || uri.start_with?(URIGrabber::MISSING_FILE_URL)
-    return last_active if !uri.start_with?("file://")
+    return none if projects.array.empty? || uri.scheme == 'missingfile'
+    return last_active if uri.scheme != 'file'
 
     project_for(uri)
   end
@@ -29,7 +29,7 @@ class Activity < CDQManagedObject
   end
 
   def self.project_for(uri)
-    projects.find(->{ none }){ |project| uri.start_with?(project.urlString) }
+    projects.find(->{ none }){ |project| uri.path.start_with?(project.url.path) }
   end
 
   def self.projects
@@ -42,6 +42,10 @@ class Activity < CDQManagedObject
 
   def self.none
     where(:type).eq(NONE).first
+  end
+
+  def url
+    NSURL.URLWithString(urlString)
   end
 
   def idle?

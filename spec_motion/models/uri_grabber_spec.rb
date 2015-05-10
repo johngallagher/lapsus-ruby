@@ -14,13 +14,7 @@ describe URIGrabber do
   it "returns the active uri" do
     lapsus_main = "file://localhost/Users/Documents/Lapsus/main.rb"
     assuming_active_uri(lapsus_main)
-    URIGrabber.new(@workspace).grab.should == lapsus_main
-  end
-
-  it "adds in localhost for the host if it's missing" do
-    lapsus_main = "file:///Users/Documents/Lapsus/main.rb"
-    assuming_active_uri(lapsus_main)
-    URIGrabber.new(@workspace).grab.should ==  "file://localhost/Users/Documents/Lapsus/main.rb"
+    URIGrabber.new(@workspace).grab.should == NSURL.URLWithString(lapsus_main)
   end
 
   it "uses correct Applescript for Safari" do

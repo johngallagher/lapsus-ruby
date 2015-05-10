@@ -8,7 +8,9 @@ class ProjectSummaryController < NSViewController
   outlet :table_view, NSTableView
 
   def awakeFromNib
+    @projects = Activity.projects
     select_date(self.date_selector)
+    super
   end
   
   def select_date(sender)
@@ -18,13 +20,15 @@ class ProjectSummaryController < NSViewController
   end
 
   def numberOfRowsInTableView(tableView)
-    Activity.projects.count
+    @projects.to_a.count
   end
 
   def tableView(tableView, viewForTableColumn: column, row: row)
-    project = Activity.projects[row]
+    project = @projects[row]
     if column.identifier == "ProjectSummaryTimeColumn"
       cell = tableView.makeViewWithIdentifier("ProjectTime", owner: self)
+      #cell.textField.formatter = MinutesDurationFormatter.new
+      #cell.textField.objectValue = project.time_for(selected_date_range)
       cell.textField.stringValue = project.time_for(selected_date_range)
     else
       cell = tableView.makeViewWithIdentifier("ProjectIconAndName", owner: self)

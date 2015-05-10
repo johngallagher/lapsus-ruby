@@ -9,8 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface MainWindowController: NSWindowController
--(IBAction) add:(id) sender;
--(IBAction) remove:(id) sender;
+
+@property IBOutlet id source_list_controller;
+@property IBOutlet id project_summary_controller;
+
+@end
+
+@interface MinutesDurationFormatter: NSFormatter
+-(IBAction) stringForObjectValue:(id) seconds;
 
 @end
 
@@ -28,10 +34,12 @@
 
 @interface SourceListController: NSViewController
 
-@property IBOutlet NSArrayController * entries_controller;
+@property IBOutlet NSOutlineView * outline_view;
+@property IBOutlet NSTableView * table_view;
 
 -(IBAction) add:(id) sender;
 -(IBAction) remove:(id) sender;
+-(IBAction) reload;
 -(IBAction) awakeFromNib;
 -(IBAction) outlineViewSelectionDidChange:(id) notification;
 

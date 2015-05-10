@@ -3,7 +3,7 @@ class AppDelegate
 
   attr_reader :main_context
 
-  def applicationDidFinishLaunching(_notification)
+  def applicationDidFinishLaunching(_)
     return true if RUBYMOTION_ENV == "test"
 
     cdq.setup
@@ -20,7 +20,11 @@ class AppDelegate
     true
   end
 
-  def applicationWillTerminate(_notification)
+  def applicationWillBecomeActive(_)
+    @main_window_controller.source_list_controller.reload
+  end
+
+  def applicationWillTerminate(_)
     @tracker.stop
   end
 end

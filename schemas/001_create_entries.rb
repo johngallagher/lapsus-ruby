@@ -18,7 +18,8 @@ schema "001" do
 
   entity "Container" do
     string :name
-    string :path
+    string :urlString
+    string :type, default: "Container"
 
     has_many :activities
   end

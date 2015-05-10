@@ -41,17 +41,17 @@ describe Activity do
 
   it "returns the idle activity if the user is idle" do
     user_is_idle
-    Activity.from_uri("anything").should == Activity.idle
+    Activity.from_uri(NSURL.URLWithString("anything")).should == Activity.idle
   end
 
   it "returns no activity if there are no projects" do
-    Activity.from_uri("anything").should == Activity.none
+    Activity.from_uri(NSURL.URLWithString("anything")).should == Activity.none
   end
 
   it "returns a last active activity if the active uri has http schema" do
     assume_a_project_exists
 
-    Activity.from_uri("http://www.google.co.uk").last_active?.should == true
+    Activity.from_uri(NSURL.URLWithString("http://www.google.co.uk")).last_active?.should == true
   end
 
   it "no activity for missing files" do
@@ -61,24 +61,24 @@ describe Activity do
   end
 
   it "matches projects that contain the current uri" do
-    assume_autoparts_activity
-
+    assume_autoparts_project
+  
     Activity.from_uri(autoparts_document_uri).should == @autoparts
   end
 
   it "assigns no activity to a non project file" do
-    assume_autoparts_activity
+    assume_autoparts_project
 
     Activity.from_uri(lapsus_file_uri).should == Activity.none
   end
 end
 
 def autoparts_document_uri
-  "file://localhost/Users/John/Autoparts/main.rb"
+  NSURL.URLWithString("file://localhost/Users/John/Autoparts/main.rb")
 end
 
 def lapsus_file_uri
-  "file://localhost/Users/John/Lapsus/main.rb"
+  NSURL.URLWithString("file://localhost/Users/John/Lapsus/main.rb")
 end
 
 def user_is_idle
@@ -90,13 +90,13 @@ def user_is_active
 end
 
 def assume_a_project_exists
-  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts")
+  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts/")
 end
 
-def assume_autoparts_activity
-  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts")
+def assume_autoparts_project
+  @autoparts = Activity.create(name: "Autoparts", urlString: "file://localhost/Users/John/Autoparts/")
 end
 
-def assume_lapsus_activity
-  @lapsus = Activity.create(name: "Lapsus", urlString: "file://localhost/Users/John/Lapsus")
+def assume_lapsus_project
+  @lapsus = Activity.create(name: "Lapsus", urlString: "file://localhost/Users/John/Lapsus/")
 end

@@ -1,5 +1,5 @@
 class URIGrabber
-  MISSING_FILE_URL = "missingfile://"
+  MISSING_FILE_URL = NSURL.URLWithString("missingfile://")
 
   def initialize(workspace)
     @lapsus_bundle_identifier = NSBundle.mainBundle.bundleIdentifier
@@ -13,16 +13,10 @@ class URIGrabber
     source = source_from_application(active_application.bundleIdentifier, active_application.processIdentifier)
     active_uri = AppleScriptRunner.run(source)
     if active_uri && active_uri.stringValue
-      standardised(active_uri.stringValue)
+      NSURL.URLWithString(active_uri.stringValue)
     else
       MISSING_FILE_URL
     end
-  end
-
-  def standardised(uri)
-    standardised_uri = URI(uri)
-    standardised_uri.host = "localhost" if !standardised_uri.host && standardised_uri.scheme == "file"
-    standardised_uri.to_s
   end
 
   def source_from_application(bundle_identifier, process_identifier)
