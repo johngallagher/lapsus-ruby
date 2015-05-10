@@ -57,6 +57,6 @@ class Activity < CDQManagedObject
   end
 
   def time_for(date_range)
-    Entry.where(:activity).eq(self).and(:startedAt).ge(date_range.begin).and(:finishedAt).le(date_range.end).to_a.map(&:duration).reduce(0, :+)
+    entries.where(:startedAt).ge(date_range.begin).and(:finishedAt).le(date_range.end).map(&:duration).reduce(0, :+)
   end
 end
