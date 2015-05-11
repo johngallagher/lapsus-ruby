@@ -27,7 +27,9 @@
 @property IBOutlet NSTableView * table_view;
 
 -(IBAction) awakeFromNib;
+-(IBAction) select_today;
 -(IBAction) select_date:(id) sender;
+-(IBAction) change_date_to:(id) selected_date;
 -(IBAction) numberOfRowsInTableView:(id) tableView;
 
 @end
@@ -41,7 +43,6 @@
 -(IBAction) remove:(id) sender;
 -(IBAction) reload;
 -(IBAction) awakeFromNib;
--(IBAction) outlineViewSelectionDidChange:(id) notification;
 
 @end
 

@@ -7,83 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12DF963055045BA9357AD448 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44331CCE78951E24E2AD0582 /* CoreData.framework */; };
-		2152019ADE5C61A45328B212 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B667E8CF668895E44A6D76 /* CoreGraphics.framework */; };
-		82659F11E2FFDF5B1CE9CA27 /* Stubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F37BDC63AA7FDE8AF3EFA /* Stubs.m */; };
-		B8DBBC21B010F42C2DC2060F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0E97B69B48FC9B71DE291D /* Cocoa.framework */; };
-		BFDD8B9B6303E62EED432714 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B94BF08F3317FD60326EEEB /* QuartzCore.framework */; };
+		06EB3E240F37C53056C4380D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD55A0CAA5106619423F247B /* CoreData.framework */; };
+		233EFA27CCC30B249DF5C7B7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD1C9FE6329218E3731A68E /* QuartzCore.framework */; };
+		579A5FDD44E6A54F6992E996 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E748DF5FDC9EFF81A4A8F5 /* CoreGraphics.framework */; };
+		E6942090D087FBA3EF64BFD1 /* Stubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468BAAD40FEC8A436FB46E3 /* Stubs.m */; };
+		FAF7AB3A7275215CFEEA400A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C72DB5B32666609579C47E2 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		292A64BFC884C7D0BE3D3234 /* clock.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
-		2F0E97B69B48FC9B71DE291D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		44331CCE78951E24E2AD0582 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
-		4E5F37BDC63AA7FDE8AF3EFA /* Stubs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Stubs.m; sourceTree = "<group>"; };
-		5EC2A253967DA7162739AEAD /* libib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libib.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B94BF08F3317FD60326EEEB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		A202AE36CA8D0E2D3459EFC2 /* MainWindow.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		C49E57580AE2E32E245AE1DB /* Preferences.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
-		C7B667E8CF668895E44A6D76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		D18D4110CDB5043CE90E65F5 /* Stubs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Stubs.h; sourceTree = "<group>"; };
+		0C819FFE5869AA486B486D88 /* libib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		220671CA98BDA6176848C4B6 /* clock.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		41E748DF5FDC9EFF81A4A8F5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		6468BAAD40FEC8A436FB46E3 /* Stubs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Stubs.m; sourceTree = "<group>"; };
+		698A5592FFAB5CC9F45F268E /* Preferences.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		7BD1C9FE6329218E3731A68E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		8C72DB5B32666609579C47E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		AE5B61F480B50B8DBEDAF02C /* MainWindow.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		BA673967A0C89D07F965A2A8 /* Stubs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Stubs.h; sourceTree = "<group>"; };
+		CD55A0CAA5106619423F247B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		521B5D4C87768B67D522C326 /* Frameworks */ = {
+		B7B91A2354A8444755353240 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8DBBC21B010F42C2DC2060F /* Cocoa.framework in Frameworks */,
-				BFDD8B9B6303E62EED432714 /* QuartzCore.framework in Frameworks */,
-				2152019ADE5C61A45328B212 /* CoreGraphics.framework in Frameworks */,
-				12DF963055045BA9357AD448 /* CoreData.framework in Frameworks */,
+				FAF7AB3A7275215CFEEA400A /* Cocoa.framework in Frameworks */,
+				233EFA27CCC30B249DF5C7B7 /* QuartzCore.framework in Frameworks */,
+				579A5FDD44E6A54F6992E996 /* CoreGraphics.framework in Frameworks */,
+				06EB3E240F37C53056C4380D /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		26B75AC73AB06DD20C159B34 /* resources */ = {
+		72A406978A74415C59A13910 = {
 			isa = PBXGroup;
 			children = (
-				EEE3DDF4DE96F2B3D127F9DD /* lapsus-ruby.xcdatamodeld */,
-				0BB0A2093D544152CA272B47 /* lapsus.xcdatamodeld */,
-				E98D595075A0A3019A053EC7 /* lapsus_menu_bar.xcdatamodeld */,
-				292A64BFC884C7D0BE3D3234 /* clock.png */,
-				A202AE36CA8D0E2D3459EFC2 /* MainWindow.xib */,
-				C49E57580AE2E32E245AE1DB /* Preferences.xib */,
-			);
-			name = resources;
-			path = ./resources;
-			sourceTree = "<group>";
-		};
-		3E14EC1F92F85886BF1EA1E4 = {
-			isa = PBXGroup;
-			children = (
-				661B616255BD73FB2CDF9753 /* Products */,
-				43FA773F782E10F8F87261A1 /* Frameworks */,
-				A2520D0A467DF1841675F5CE /* Supporting Files */,
-				7904A53B38471D2C5D601AC7 /* Pods */,
-				C09C42DB18E40E30555CBED0 /* Resources */,
+				C2909BBEBF22EA5A18BE4EA5 /* Products */,
+				F1B877EE718B6CB3DAB25671 /* Frameworks */,
+				87D879A8488F13399BEFB2AC /* Supporting Files */,
+				9839C176C98A746167A6358B /* Pods */,
+				E708F4C1BE96C7C893D6B491 /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
-		43FA773F782E10F8F87261A1 /* Frameworks */ = {
+		87D879A8488F13399BEFB2AC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AA595B0D2609D22361C0A7EB /* OS X */,
+				BA673967A0C89D07F965A2A8 /* Stubs.h */,
+				6468BAAD40FEC8A436FB46E3 /* Stubs.m */,
 			);
-			name = Frameworks;
+			name = "Supporting Files";
+			path = /Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/ib.xcodeproj;
 			sourceTree = "<group>";
 		};
-		661B616255BD73FB2CDF9753 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5EC2A253967DA7162739AEAD /* libib.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7904A53B38471D2C5D601AC7 /* Pods */ = {
+		9839C176C98A746167A6358B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -91,44 +71,64 @@
 			path = /Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/vendor/Pods/Headers;
 			sourceTree = "<group>";
 		};
-		A2520D0A467DF1841675F5CE /* Supporting Files */ = {
+		C2909BBEBF22EA5A18BE4EA5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D18D4110CDB5043CE90E65F5 /* Stubs.h */,
-				4E5F37BDC63AA7FDE8AF3EFA /* Stubs.m */,
+				0C819FFE5869AA486B486D88 /* libib.a */,
 			);
-			name = "Supporting Files";
-			path = /Users/johngallagher/Dropbox/Projects/ProgrammingProjects/CurrentProjects/lapsus/ib.xcodeproj;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		AA595B0D2609D22361C0A7EB /* OS X */ = {
+		DEB8A5A0C04C220A1748E89E /* OS X */ = {
 			isa = PBXGroup;
 			children = (
-				2F0E97B69B48FC9B71DE291D /* Cocoa.framework */,
-				7B94BF08F3317FD60326EEEB /* QuartzCore.framework */,
-				C7B667E8CF668895E44A6D76 /* CoreGraphics.framework */,
-				44331CCE78951E24E2AD0582 /* CoreData.framework */,
+				8C72DB5B32666609579C47E2 /* Cocoa.framework */,
+				7BD1C9FE6329218E3731A68E /* QuartzCore.framework */,
+				41E748DF5FDC9EFF81A4A8F5 /* CoreGraphics.framework */,
+				CD55A0CAA5106619423F247B /* CoreData.framework */,
 			);
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		C09C42DB18E40E30555CBED0 /* Resources */ = {
+		E708F4C1BE96C7C893D6B491 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				26B75AC73AB06DD20C159B34 /* resources */,
+				FDFBD98DB52E948D3A29AEF6 /* resources */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		F1B877EE718B6CB3DAB25671 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEB8A5A0C04C220A1748E89E /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDFBD98DB52E948D3A29AEF6 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				87FAE155B2C089F0DBBE5EB1 /* lapsus-ruby.xcdatamodeld */,
+				799AD054332861A4DAEB2755 /* lapsus.xcdatamodeld */,
+				8796E1C7CB24FA0E42FF5AAD /* lapsus_menu_bar.xcdatamodeld */,
+				220671CA98BDA6176848C4B6 /* clock.png */,
+				AE5B61F480B50B8DBEDAF02C /* MainWindow.xib */,
+				698A5592FFAB5CC9F45F268E /* Preferences.xib */,
+			);
+			name = resources;
+			path = ./resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FB806F91512ECCF24680FC5B /* ib */ = {
+		D9143EE3459D04025BC8503F /* ib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 977AE568928B03CD686188C3 /* Build configuration list for PBXNativeTarget "ib" */;
+			buildConfigurationList = AF66CF361B79B900056ABD75 /* Build configuration list for PBXNativeTarget "ib" */;
 			buildPhases = (
-				92ABEC95BAEFD9C168014D6A /* Sources */,
-				521B5D4C87768B67D522C326 /* Frameworks */,
+				C4A831A07F0FB755E0CAD84B /* Sources */,
+				B7B91A2354A8444755353240 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,47 +136,47 @@
 			);
 			name = ib;
 			productName = ib;
-			productReference = 5EC2A253967DA7162739AEAD /* libib.a */;
+			productReference = 0C819FFE5869AA486B486D88 /* libib.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		FC127F06A8D691C5E7B8C9B8 /* Project object */ = {
+		600C60BB936EAC86FE3538B0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = 9E776427E15D5F62C349DF4D /* Build configuration list for PBXProject "ib" */;
+			buildConfigurationList = F89DE68A1C6686E5C6E4A208 /* Build configuration list for PBXProject "ib" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 3E14EC1F92F85886BF1EA1E4;
-			productRefGroup = 661B616255BD73FB2CDF9753 /* Products */;
+			mainGroup = 72A406978A74415C59A13910;
+			productRefGroup = C2909BBEBF22EA5A18BE4EA5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FB806F91512ECCF24680FC5B /* ib */,
+				D9143EE3459D04025BC8503F /* ib */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		92ABEC95BAEFD9C168014D6A /* Sources */ = {
+		C4A831A07F0FB755E0CAD84B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82659F11E2FFDF5B1CE9CA27 /* Stubs.m in Sources */,
+				E6942090D087FBA3EF64BFD1 /* Stubs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		51FCCF6FF739B0F35D41267F /* Release */ = {
+		185A78DA1FDFFE4F7AADA35B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -206,7 +206,7 @@
 			};
 			name = Release;
 		};
-		9B5292F395DAEF398052C16E /* Debug */ = {
+		7A15EEE3AD79091035838CFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -242,7 +242,18 @@
 			};
 			name = Debug;
 		};
-		A6893232E69B0D029927BBCE /* Release */ = {
+		A1F802C9503B0FACD9EAAD23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CA2BB6985C49E067E24A9638 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -254,34 +265,23 @@
 			};
 			name = Release;
 		};
-		AE6047C61082C1105983FDEA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		977AE568928B03CD686188C3 /* Build configuration list for PBXNativeTarget "ib" */ = {
+		AF66CF361B79B900056ABD75 /* Build configuration list for PBXNativeTarget "ib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A6893232E69B0D029927BBCE /* Release */,
-				AE6047C61082C1105983FDEA /* Debug */,
+				CA2BB6985C49E067E24A9638 /* Release */,
+				A1F802C9503B0FACD9EAAD23 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E776427E15D5F62C349DF4D /* Build configuration list for PBXProject "ib" */ = {
+		F89DE68A1C6686E5C6E4A208 /* Build configuration list for PBXProject "ib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9B5292F395DAEF398052C16E /* Debug */,
-				51FCCF6FF739B0F35D41267F /* Release */,
+				7A15EEE3AD79091035838CFB /* Debug */,
+				185A78DA1FDFFE4F7AADA35B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -289,7 +289,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0BB0A2093D544152CA272B47 /* lapsus.xcdatamodeld */ = {
+		799AD054332861A4DAEB2755 /* lapsus.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 			);
@@ -297,7 +297,7 @@
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
-		E98D595075A0A3019A053EC7 /* lapsus_menu_bar.xcdatamodeld */ = {
+		8796E1C7CB24FA0E42FF5AAD /* lapsus_menu_bar.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 			);
@@ -305,7 +305,7 @@
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
-		EEE3DDF4DE96F2B3D127F9DD /* lapsus-ruby.xcdatamodeld */ = {
+		87FAE155B2C089F0DBBE5EB1 /* lapsus-ruby.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 			);
@@ -315,5 +315,5 @@
 		};
 /* End XCVersionGroup section */
 	};
-	rootObject = FC127F06A8D691C5E7B8C9B8 /* Project object */;
+	rootObject = 600C60BB936EAC86FE3538B0 /* Project object */;
 }

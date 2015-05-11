@@ -8,13 +8,22 @@ class ProjectSummaryController < NSViewController
   outlet :table_view, NSTableView
 
   def awakeFromNib
-    @projects = Activity.projects
-    select_date(self.date_selector)
+    @projects ||= Activity.projects
+    select_today
     super
+  end
+
+  def select_today
+    self.date_selector.dateValue = NSDate.date.at_midnight
+    self.date_selector.maxDate = NSDate.date.at_midnight
+    select_date(self.date_selector)
   end
   
   def select_date(sender)
-    selected_date = sender.dateValue
+    change_date_to(sender.dateValue)
+  end
+
+  def change_date_to(selected_date)
     self.selected_date_range = (selected_date..selected_date.end_of_day)
     table_view.reloadData
   end
