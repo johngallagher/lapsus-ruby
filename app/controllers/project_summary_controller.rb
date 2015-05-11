@@ -20,7 +20,7 @@ class ProjectSummaryController < NSViewController
   end
 
   def numberOfRowsInTableView(tableView)
-    @projects.to_a.count
+    @projects.count
   end
 
   def tableView(tableView, viewForTableColumn: column, row: row)
