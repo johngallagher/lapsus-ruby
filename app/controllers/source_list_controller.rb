@@ -30,6 +30,7 @@ class SourceListController < NSViewController
   end
 
   def reload
+    @containers = Container.all.to_a
     outline_view.reloadData
     table_view.reloadData
   end
@@ -37,7 +38,7 @@ class SourceListController < NSViewController
 
   def awakeFromNib
     @all_projects ||= OpenStruct.new(name: 'PROJECTS', type: 'Group')
-    @containers ||= Container.all
+    @containers ||= Container.all.to_a
     super
   end
 
@@ -53,9 +54,9 @@ class SourceListController < NSViewController
     if item.nil?
       1
     elsif item.type == 'Group'
-      @containers.to_a.count
+      @containers.count
     else
-      item.activities.count
+      item.activities.to_a.count
     end
   end
 
@@ -69,12 +70,8 @@ class SourceListController < NSViewController
     elsif item.type == 'Group'
       @containers[index]
     else
-      item.activities[index]
+      item.activities.to_a[index]
     end
-  end
-
-  def outlineView(outlineView, shouldExpandItem: item)
-    true
   end
 
   def outlineView(outlineView, viewForTableColumn: column, item: object)
@@ -86,9 +83,5 @@ class SourceListController < NSViewController
     end
     cell.textField.stringValue = object.name
     cell
-  end
-
-  def outlineViewSelectionDidChange(notification)
-    # Show different projects in right hand side
   end
 end
