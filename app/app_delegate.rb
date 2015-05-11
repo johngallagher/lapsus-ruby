@@ -14,10 +14,14 @@ class AppDelegate
 
     @main_window_controller = MainWindowController.alloc.initWithWindowNibName('MainWindow')
     @main_window_controller.window.makeKeyAndOrderFront(self)
-    source_list = @main_window_controller.source_list_controller.outline_view
-    source_list.expandItem(source_list.itemAtRow(0))
+    expandRootInSourceList
 
     true
+  end
+
+  def expandRootInSourceList
+    source_list = @main_window_controller.source_list_controller.outline_view
+    source_list.expandItem(source_list.itemAtRow(0))
   end
 
   def applicationWillBecomeActive(_)
