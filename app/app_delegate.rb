@@ -25,7 +25,9 @@ class AppDelegate
   end
 
   def applicationWillBecomeActive(_)
+    @tracker.update
     @main_window_controller.source_list_controller.reload
+    @main_window_controller.project_summary_controller.date_selector.dateValue = NSDate.date
   end
 
   def applicationWillTerminate(_)
