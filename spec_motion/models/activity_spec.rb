@@ -78,6 +78,30 @@ describe Activity do
 
     Activity.by_name.map(&:name).should == ['Autoparts', 'Lapsus']
   end
+
+  it "sums up all time" do
+    assume_autoparts_project
+    assume_lapsus_project
+    add_time_to_lapsus
+
+    @lapsus.time.should != 0
+    @autoparts.time.should == 0
+  end
+
+  it "hides activities without time" do
+    assume_autoparts_project
+    assume_lapsus_project
+    add_time_to_lapsus
+
+    Activity.with_time.count.should == 1
+    Activity.with_time.first.name.should == 'Lapsus'
+  end
+end
+
+def add_time_to_lapsus
+  entry = Entry.create(startedAt: 2.minutes.ago, finishedAt: 1.minute.ago)
+  entry.update_duration
+  @lapsus.entries << entry
 end
 
 def autoparts_document_uri
