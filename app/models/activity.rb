@@ -4,6 +4,8 @@ class Activity < CDQManagedObject
   PROJECT = "Project"
   LAST_ACTIVE = "Last Active"
 
+  scope :by_name, sort_by(:name, order: :ascending, case_insensitive: true)
+
   def self.find_or_create_none
     return none if none
 

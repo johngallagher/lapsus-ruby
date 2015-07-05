@@ -71,6 +71,13 @@ describe Activity do
 
     Activity.from_uri(lapsus_file_uri).should == Activity.none
   end
+  
+  it "sorts activities by name" do
+    assume_autoparts_project
+    assume_lapsus_project
+
+    Activity.by_name.map(&:name).should == ['Autoparts', 'Lapsus']
+  end
 end
 
 def autoparts_document_uri
