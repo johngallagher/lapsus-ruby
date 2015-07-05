@@ -263,7 +263,7 @@
                                             <date key="date" timeIntervalSinceReferenceDate="452386800">
                                                 <!--2015-05-03 23:00:00 +0000-->
                                             </date>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </datePickerCell>
                                         <connections>

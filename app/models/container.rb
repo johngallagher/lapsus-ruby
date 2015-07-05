@@ -25,4 +25,8 @@ class Container < CDQManagedObject
   def url
     NSURL.URLWithString(urlString)
   end
+
+  def activities_with_time
+    activities.sort_by { |a| a.name.downcase }.select { |a| a.time > 0 }
+  end
 end

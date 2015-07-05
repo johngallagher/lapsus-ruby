@@ -56,7 +56,7 @@ class SourceListController < NSViewController
     elsif item.type == 'Group'
       @containers.count
     else
-      item.activities.to_a.count
+      item.activities_with_time.count
     end
   end
 
@@ -70,7 +70,7 @@ class SourceListController < NSViewController
     elsif item.type == 'Group'
       @containers[index]
     else
-      item.activities.to_a[index]
+      item.activities_with_time[index]
     end
   end
 

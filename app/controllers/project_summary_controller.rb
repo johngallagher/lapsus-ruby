@@ -29,15 +29,13 @@ class ProjectSummaryController < NSViewController
   end
 
   def numberOfRowsInTableView(tableView)
-    @projects.count
+    @projects.select { |p| p.time > 0 }.count
   end
 
   def tableView(tableView, viewForTableColumn: column, row: row)
-    project = @projects[row]
+    project = @projects.select { |p| p.time > 0 }[row]
     if column.identifier == "ProjectSummaryTimeColumn"
       cell = tableView.makeViewWithIdentifier("ProjectTime", owner: nil)
-      #cell.textField.formatter = MinutesDurationFormatter.new
-      #cell.textField.objectValue = project.time_for(selected_date_range)
       cell.textField.stringValue = project.time_for(selected_date_range)
     else
       cell = tableView.makeViewWithIdentifier("ProjectIconAndName", owner: nil)

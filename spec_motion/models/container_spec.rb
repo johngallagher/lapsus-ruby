@@ -10,4 +10,11 @@ describe Container do
     Container.first.activities.first.name.should == 'project_directory'
     Container.first.activities.first.urlString.should == "file://#{Dir.pwd}/spec_motion/fixtures/project_directory/"
   end
+
+  it "gives activities with time" do
+    url = NSURL.URLWithString("file://#{Dir.pwd}/spec_motion/fixtures/")
+    container = Container.create_from_url(url)
+    container.activities.count.should == 1
+    container.activities_with_time.count.should == 0
+  end
 end
