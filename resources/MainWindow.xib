@@ -258,12 +258,12 @@
                                     </scrollView>
                                     <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SJM-pd-9iI">
                                         <rect key="frame" x="20" y="246" width="139" height="148"/>
-                                        <datePickerCell key="cell" alignment="left" drawsBackground="NO" datePickerStyle="clockAndCalendar" id="eS4-lc-neo">
+                                        <datePickerCell key="cell" alignment="left" datePickerStyle="clockAndCalendar" id="eS4-lc-neo">
                                             <font key="font" metaFont="system"/>
                                             <date key="date" timeIntervalSinceReferenceDate="452386800">
                                                 <!--2015-05-03 23:00:00 +0000-->
                                             </date>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </datePickerCell>
                                         <connections>
@@ -287,6 +287,16 @@
                                     <constraint firstItem="SJM-pd-9iI" firstAttribute="top" secondItem="HfB-8j-btx" secondAttribute="top" constant="53" id="yA2-Xj-F8T"/>
                                     <constraint firstItem="38k-zJ-uQS" firstAttribute="top" secondItem="HfB-8j-btx" secondAttribute="top" constant="20" id="z9G-zN-pBs"/>
                                 </constraints>
+                                <contentFilters>
+                                    <ciFilter name="CIColorControls">
+                                        <configuration>
+                                            <real key="inputBrightness" value="0.0"/>
+                                            <real key="inputContrast" value="1"/>
+                                            <null key="inputImage"/>
+                                            <real key="inputSaturation" value="0.0"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
                             </customView>
                         </subviews>
                         <holdingPriorities>
